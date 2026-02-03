@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Checklist de Mala — Zest</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#fafafa;
+  margin:0;
+  padding:20px;
+  color:#222;
+}
+
+.container{
+  max-width:500px;
+  margin:auto;
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+h2{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+h3{
+  margin-top:20px;
+  color:#444;
+}
+
+label{
+  display:block;
+  margin:6px 0;
+  font-size:16px;
+}
+
+.footer{
+  text-align:center;
+  margin-top:25px;
+  font-size:13px;
+  color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🧳 Checklist de Mala — Zest</h2>
+
+<h3>📄 Documentos</h3>
+<label><input type="checkbox" data-id="doc1"> Passaporte / RG</label>
+<label><input type="checkbox" data-id="doc2"> Visto</label>
+<label><input type="checkbox" data-id="doc3"> Seguro</label>
+<label><input type="checkbox" data-id="doc4"> Cartões</label>
+
+<h3>👕 Roupas</h3>
+<label><input type="checkbox" data-id="roupa1"> Camisetas</label>
+<label><input type="checkbox" data-id="roupa2"> Calças / Shorts</label>
+<label><input type="checkbox" data-id="roupa3"> Casaco</label>
+<label><input type="checkbox" data-id="roupa4"> Roupa íntima</label>
+<label><input type="checkbox" data-id="roupa5"> Pijama</label>
+
+<h3>🧴 Necessaire</h3>
+<label><input type="checkbox" data-id="nec1"> Escova e pasta</label>
+<label><input type="checkbox" data-id="nec2"> Remédios</label>
+<label><input type="checkbox" data-id="nec3"> Protetor solar</label>
+
+<h3>🔌 Eletrônicos</h3>
+<label><input type="checkbox" data-id="ele1"> Celular</label>
+<label><input type="checkbox" data-id="ele2"> Carregador</label>
+<label><input type="checkbox" data-id="ele3"> Adaptador</label>
+
+<h3>✨ Extras</h3>
+<label><input type="checkbox" data-id="ex1"> Óculos</label>
+<label><input type="checkbox" data-id="ex2"> Livro</label>
+<label><input type="checkbox" data-id="ex3"> Mochila</label>
+
+<div class="footer">
+Preparado com carinho pela Zest 💛
+</div>
+
+</div>
+
+<script>
+document.querySelectorAll('input[type="checkbox"]').forEach(function(box){
+  const key = "zest_" + box.dataset.id;
+
+  box.checked = localStorage.getItem(key) === "true";
+
+  box.addEventListener("change", function(){
+    localStorage.setItem(key, box.checked);
+  });
+});
+</script>
+
+</body>
+</html>
