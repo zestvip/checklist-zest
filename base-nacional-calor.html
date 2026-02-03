@@ -1,0 +1,541 @@
+```html
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checklist de Mala — Zest</title>
+
+  <style>
+    :root{
+      /* Base */
+      --bg:    #B3D9EB;
+      --card:  #F9F7E1;
+      --text:  #1f1f1f;
+      --muted: #6b7280;
+
+      /* Estrutura */
+      --line:   #e4e2cf;
+      --pill:   #f1f2ec;
+      --radius: 18px;
+      --shadow: 0 6px 18px rgba(0,0,0,.06);
+
+      /* Marca */
+      --accent: #B3D9EB;
+      --soft:   #B3D9EB;
+      --deep:   #123826;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+      line-height:1.5;
+      padding:18px;
+    }
+
+    .wrap{ max-width:560px; margin:0 auto; }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    header{
+      padding:18px 18px 12px 18px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .brand{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .brand img{
+      height:34px;
+      object-fit:contain;
+      display:block;
+    }
+
+    h1{
+      font-size:18px;
+      margin:0;
+      letter-spacing:.2px;
+      text-align:center;
+    }
+
+    .subtitle{
+      text-align:center;
+      margin:8px 0 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      padding:12px 18px;
+      border-bottom:1px solid var(--line);
+      flex-wrap:wrap;
+    }
+
+    button{
+      border:1px solid var(--line);
+      background:var(--card);
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:14px;
+      cursor:pointer;
+      transition:transform .05s ease, background .15s ease, border-color .15s ease;
+    }
+    button:hover{ background:var(--pill); }
+    button:active{ transform:translateY(1px); }
+
+    .ghost{ background:transparent; }
+    .ghost:hover{
+      background:rgba(18,56,38,.06);
+      border-color:rgba(18,56,38,.18);
+    }
+
+    #clearAll{ border-color:rgba(18,56,38,.18); }
+
+    details{
+      border-bottom:1px solid var(--line);
+      padding:0 18px;
+    }
+
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      user-select:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+    .secTitle{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      font-weight:600;
+      font-size:15px;
+    }
+
+    .count{
+      font-size:12px;
+      color:var(--muted);
+      background:var(--pill);
+      border:1px solid var(--line);
+      padding:4px 8px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    .items{
+      padding:0 0 14px 0;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    label{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px 10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:var(--card);
+      transition:background .15s ease, border-color .15s ease;
+    }
+
+    label:hover{
+      background:rgba(179,217,235,.22);
+      border-color:rgba(18,56,38,.14);
+    }
+
+    input[type="checkbox"]{
+      margin-top:3px;
+      width:18px;
+      height:18px;
+      flex:0 0 auto;
+      accent-color:var(--accent);
+      cursor:pointer;
+    }
+
+    .txt{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+
+    .sub{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    label.checked{ opacity:.75; }
+    label.checked .txt{ text-decoration:line-through; }
+
+    .notesWrap{
+      padding:0 18px 18px 18px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .notesTitle{
+      margin:18px 0 10px 0;
+      font-weight:600;
+      font-size:15px;
+      color:var(--deep);
+    }
+
+    textarea{
+      width:100%;
+      min-height:120px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      font-size:14px;
+      resize:vertical;
+      outline:none;
+      background:var(--card);
+      color:var(--text);
+    }
+    textarea:focus{
+      border-color:rgba(0,189,169,.55);
+      box-shadow:0 0 0 4px rgba(0,189,169,.10);
+    }
+
+    footer{
+      padding:14px 18px 18px 18px;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .sig{
+      margin-top:12px;
+      color:var(--deep);
+      font-weight:700;
+      line-height:1.35;
+    }
+
+    /* “quebra de página” (útil ao imprimir/salvar em PDF) */
+    .pagebreak{ height:12px; }
+    @media print{
+      .pagebreak{ break-before: page; page-break-before: always; }
+    }
+
+    /* Sub-seções dentro de uma categoria */
+    .subsectionTitle{
+      margin:10px 0 2px 0;
+      padding:10px 12px;
+      border:1px solid rgba(18,56,38,.14);
+      border-radius:14px;
+      background:rgba(18,56,38,.06);
+      color:var(--deep);
+      font-weight:700;
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="brand">
+          <img src="logo-zest-ceu.png" alt="Zest">
+        </div>
+
+        <h1>Checklist de Mala — Nacional / Mercosul (Calor)</h1>
+        <p class="subtitle">
+          A Zest quer facilitar sua vida: aqui vai uma pré-seleção cuidadosa com os itens essenciais para viagens nacionais
+          ou para países do Mercosul em clima quente. Use este checklist à vontade, marque direto no celular, faça anotações
+          e volte sempre que precisar — ao abrir novamente no mesmo dispositivo, tudo continuará salvo.
+        </p>
+      </header>
+
+      <div class="actions">
+        <button id="expandAll" class="ghost" type="button">Abrir categorias</button>
+        <button id="collapseAll" class="ghost" type="button">Fechar categorias</button>
+        <button id="clearAll" type="button">Desmarcar tudo</button>
+      </div>
+
+      <!-- ITENS GERAIS -->
+      <details open>
+        <summary>
+          <div class="secTitle">Itens gerais</div>
+          <div class="count" data-count="gerais">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="gerais_documento"><span class="txt">Documento de identificação <span class="sub">(Brasil: RG ou CNH; Mercosul: RG em bom estado — passaporte é opcional)</span></span></label>
+          <label><input type="checkbox" data-id="gerais_comprovantes"><span class="txt">Comprovantes essenciais <span class="sub">(passagens, hotéis, transfers/passeios)</span></span></label>
+          <label><input type="checkbox" data-id="gerais_cartoes_credito"><span class="txt">Cartões de crédito <span class="sub">(limite ok; aviso de viagem se for Mercosul)</span></span></label>
+          <label><input type="checkbox" data-id="gerais_dinheiro"><span class="txt">Dinheiro em espécie <span class="sub">(trocados para gorjetas e pequenas compras)</span></span></label>
+
+          <label><input type="checkbox" data-id="gerais_seguro"><span class="txt">Seguro-viagem/assistência <span class="sub">(recomendado; especialmente para Mercosul)</span></span></label>
+          <label><input type="checkbox" data-id="gerais_cartao_sus"><span class="txt">Cartão do SUS / plano de saúde <span class="sub">(se for nacional)</span></span></label>
+
+          <label><input type="checkbox" data-id="gerais_chip"><span class="txt">Internet/linha <span class="sub">(chip local, roaming, eSIM ou plano que funcione no Mercosul)</span></span></label>
+          <label><input type="checkbox" data-id="gerais_carregadores"><span class="txt">Cabos e carregadores</span></label>
+
+          <label><input type="checkbox" data-id="gerais_cadeados"><span class="txt">Cadeados</span></label>
+          <label><input type="checkbox" data-id="gerais_sacos_plasticos"><span class="txt">Saquinhos plásticos/zip <span class="sub">(líquidos, roupas molhadas, eletrônicos)</span></span></label>
+          <label><input type="checkbox" data-id="gerais_porta_roupa_suja"><span class="txt">Porta-roupa suja</span></label>
+          <label><input type="checkbox" data-id="gerais_rastreador"><span class="txt">Rastreador de bagagem</span></label>
+          <label><input type="checkbox" data-id="gerais_pochete"><span class="txt">Pochete/bolsa crossbody discreta <span class="sub">(prática para passeios e deslocamentos)</span></span></label>
+        </div>
+      </details>
+
+      <!-- MALA DE MÃO -->
+      <details>
+        <summary>
+          <div class="secTitle">Mala de mão</div>
+          <div class="count" data-count="mao">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="mao_docs"><span class="txt">Documento + cartões <span class="sub">(sempre com você)</span></span></label>
+          <label><input type="checkbox" data-id="mao_muda_roupa"><span class="txt">Uma muda de roupa leve <span class="sub">(se a mala despachada atrasar)</span></span></label>
+          <label><input type="checkbox" data-id="mao_roupa_praia"><span class="txt">Roupa de banho <span class="sub">(se fizer sentido para a chegada)</span></span></label>
+
+          <label><input type="checkbox" data-id="mao_escova"><span class="txt">Escova de dente</span></label>
+          <label><input type="checkbox" data-id="mao_pasta"><span class="txt">Pasta de dente</span></label>
+          <label><input type="checkbox" data-id="mao_desodorante"><span class="txt">Desodorante roll-on/em barra</span></label>
+          <label><input type="checkbox" data-id="mao_protetor_solar"><span class="txt">Protetor solar <span class="sub">(até 100 ml se for voo)</span></span></label>
+          <label><input type="checkbox" data-id="mao_pos_solar"><span class="txt">Pós-sol/gel calmante <span class="sub">(até 100 ml se for voo)</span></span></label>
+          <label><input type="checkbox" data-id="mao_repente"><span class="txt">Repelente <span class="sub">(útil em destinos quentes)</span></span></label>
+          <label><input type="checkbox" data-id="mao_labial"><span class="txt">Hidratante labial</span></label>
+          <label><input type="checkbox" data-id="mao_alcool"><span class="txt">Álcool gel</span></label>
+          <label><input type="checkbox" data-id="mao_lencinhos"><span class="txt">Lencinhos umedecidos</span></label>
+
+          <label><input type="checkbox" data-id="mao_powerbank"><span class="txt">Powerbank <span class="sub">(se for voo: não pode despachar)</span></span></label>
+          <label><input type="checkbox" data-id="mao_carregador"><span class="txt">Cabos e carregadores <span class="sub">(celular, Kindle, smart watch)</span></span></label>
+          <label><input type="checkbox" data-id="mao_fone"><span class="txt">Fone de ouvido</span></label>
+
+          <label><input type="checkbox" data-id="mao_oculos_sol"><span class="txt">Óculos escuros</span></label>
+          <label><input type="checkbox" data-id="mao_oculos_grau"><span class="txt">Óculos de grau</span></label>
+          <label><input type="checkbox" data-id="mao_chapeu"><span class="txt">Chapéu/boné</span></label>
+
+          <label><input type="checkbox" data-id="mao_garrafa"><span class="txt">Garrafa d’água</span></label>
+          <label><input type="checkbox" data-id="mao_casaco_leve"><span class="txt">Camada leve <span class="sub">(ar-condicionado de ônibus/avião/aeroporto)</span></span></label>
+
+          <label><input type="checkbox" data-id="mao_remedios"><span class="txt">Remédios de uso livre <span class="sub">(cefaleia, enjoo, alergia, gases, diarreia, antisséptico, curativo)</span></span></label>
+          <label><input type="checkbox" data-id="mao_controlados"><span class="txt">Remédios controlados <span class="sub">(na caixa + receita, se necessário)</span></span></label>
+
+          <label><input type="checkbox" data-id="mao_caneta"><span class="txt">Caneta</span></label>
+          <label><input type="checkbox" data-id="mao_mascara"><span class="txt">Máscara de dormir</span></label>
+          <label><input type="checkbox" data-id="mao_auricular"><span class="txt">Protetor auricular</span></span></label>
+        </div>
+      </details>
+
+      <!-- NECESSAIRES -->
+      <details>
+        <summary>
+          <div class="secTitle">Necessaires (dentro da mala)</div>
+          <div class="count" data-count="nec">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="nec_lixa"><span class="txt">Lixa de unha</span></label>
+          <label><input type="checkbox" data-id="nec_pinca"><span class="txt">Pinça</span></label>
+
+          <label><input type="checkbox" data-id="nec_sabonete"><span class="txt">Sabonete</span></label>
+          <label><input type="checkbox" data-id="nec_skincare"><span class="txt">Produtos de skincare</span></label>
+          <label><input type="checkbox" data-id="nec_corporal"><span class="txt">Hidratante corporal</span></label>
+          <label><input type="checkbox" data-id="nec_desodorante"><span class="txt">Desodorante</span></label>
+          <label><input type="checkbox" data-id="nec_solar"><span class="txt">Protetor solar <span class="sub">(corpo e rosto)</span></span></label>
+          <label><input type="checkbox" data-id="nec_pos_solar"><span class="txt">Pós-sol/gel calmante</span></label>
+          <label><input type="checkbox" data-id="nec_rep"><span class="txt">Repelente</span></label>
+
+          <label><input type="checkbox" data-id="nec_shampoo"><span class="txt">Shampoo</span></label>
+          <label><input type="checkbox" data-id="nec_condicionador"><span class="txt">Condicionador</span></label>
+          <label><input type="checkbox" data-id="nec_leavein"><span class="txt">Leave-in/antifrizz <span class="sub">(calor + umidade)</span></span></label>
+
+          <label><input type="checkbox" data-id="nec_demaq"><span class="txt">Demaquilante</span></label>
+          <label><input type="checkbox" data-id="nec_algodao"><span class="txt">Disco de algodão</span></label>
+          <label><input type="checkbox" data-id="nec_cotonete"><span class="txt">Cotonete</span></label>
+
+          <label><input type="checkbox" data-id="nec_afterbite"><span class="txt">Pomada/gel pós-picada (se costuma precisar)</span></label>
+        </div>
+      </details>
+
+      <!-- ROUPAS -->
+      <details>
+        <summary>
+          <div class="secTitle">Roupas</div>
+          <div class="count" data-count="r">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="r_baixo"><span class="txt">Roupas de baixo <span class="sub">(calcinha, cueca, sutiã)</span></span></label>
+          <label><input type="checkbox" data-id="r_meias"><span class="txt">Meias <span class="sub">(poucas, mas úteis)</span></span></label>
+          <label><input type="checkbox" data-id="r_camisola"><span class="txt">Roupa de dormir leve</span></label>
+
+          <label><input type="checkbox" data-id="r_looks"><span class="txt">Looks leves do dia a dia <span class="sub">(tecidos frescos; peças que sequem rápido ajudam muito)</span></span></label>
+          <label><input type="checkbox" data-id="r_saia_bermuda"><span class="txt">Bermuda/saia</span></label>
+          <label><input type="checkbox" data-id="r_vestido"><span class="txt">Vestido</span></label>
+
+          <label><input type="checkbox" data-id="r_banho"><span class="txt">Roupas de banho <span class="sub">(biquíni, maiô, sunga)</span></span></label>
+          <label><input type="checkbox" data-id="r_saida_praia"><span class="txt">Saída de praia</span></label>
+          <label><input type="checkbox" data-id="r_canga"><span class="txt">Canga/toalha leve de viagem</span></label>
+
+          <label><input type="checkbox" data-id="r_treino"><span class="txt">Roupa de treino <span class="sub">(se for usar academia)</span></span></label>
+
+          <label><input type="checkbox" data-id="r_calcados"><span class="txt">Calçados <span class="sub">(tênis confortável + sandália + um extra, se fizer sentido)</span></span></label>
+          <label><input type="checkbox" data-id="r_chinelo"><span class="txt">Chinelo</span></label>
+
+          <label><input type="checkbox" data-id="r_bolsa"><span class="txt">Bolsa/bolsinha de passeio</span></label>
+
+          <label><input type="checkbox" data-id="r_camada_leve"><span class="txt">Camada leve <span class="sub">(ar-condicionado à noite/ambientes fechados)</span></span></label>
+          <label><input type="checkbox" data-id="r_pijama_aviao"><span class="txt">Roupa confortável para o deslocamento <span class="sub">(ônibus/avião)</span></span></label>
+        </div>
+      </details>
+
+      <!-- PRAIA & CALOR (EXTRAS) -->
+      <details>
+        <summary>
+          <div class="secTitle">Praia & calor (extras que salvam)</div>
+          <div class="count" data-count="calor">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="calor_chapeu"><span class="txt">Chapéu/boné</span></label>
+          <label><input type="checkbox" data-id="calor_camisa_uv"><span class="txt">Camisa UV/saída longa <span class="sub">(sol forte + passeios)</span></span></label>
+          <label><input type="checkbox" data-id="calor_sandalia_agua"><span class="txt">Sandália/“water shoes” <span class="sub">(opcional: pedras, trilhas molhadas)</span></span></label>
+          <label><input type="checkbox" data-id="calor_garrafa_termica"><span class="txt">Garrafa térmica</span></label>
+          <label><input type="checkbox" data-id="calor_leque"><span class="txt">Leque/mini ventilador <span class="sub">(opcional)</span></span></label>
+          <label><input type="checkbox" data-id="calor_pochete_praia"><span class="txt">Bolsa impermeável pequena <span class="sub">(celular, cartão, chaves)</span></span></label>
+          <label><input type="checkbox" data-id="calor_case_prova"><span class="txt">Case à prova d’água para celular</span></label>
+          <label><input type="checkbox" data-id="calor_aftersun"><span class="txt">Pós-sol extra</span></label>
+        </div>
+      </details>
+
+      <!-- ANTES DO EMBARQUE (com subseções) -->
+      <details>
+        <summary>
+          <div class="secTitle">Antes do embarque</div>
+          <div class="count" data-count="pre">0/0</div>
+        </summary>
+
+        <div class="items">
+          <div class="subsectionTitle">Uma a duas semanas antes do embarque</div>
+
+          <label><input type="checkbox" data-id="pre_pets"><span class="txt">Deixar a vida dos pets resolvida <span class="sub">(pet sitter, hotelzinho, ração, rotina e combinados)</span></span></label>
+          <label><input type="checkbox" data-id="pre_docs"><span class="txt">Checar documentos e regras do destino <span class="sub">(Mercosul: RG em bom estado; menores: autorizações, se aplicável)</span></span></label>
+          <label><input type="checkbox" data-id="pre_receita"><span class="txt">Conferir remédios controlados <span class="sub">(levar receita se necessário)</span></span></label>
+          <label><input type="checkbox" data-id="pre_pdf"><span class="txt">Entregar a alguém de confiança o PDF que a Zest criou com os dados da sua viagem</span></span></label>
+          <label><input type="checkbox" data-id="pre_dinheiro"><span class="txt">Separar dinheiro/limites <span class="sub">(trocados ajudam muito)</span></span></label>
+          <label><input type="checkbox" data-id="pre_apps"><span class="txt">Baixar apps essenciais <span class="sub">(mapas offline, transporte, banco/cartão)</span></span></label>
+          <label><input type="checkbox" data-id="pre_internet"><span class="txt">Garantir internet funcionando <span class="sub">(roaming, eSIM, chip local)</span></span></label>
+          <label><input type="checkbox" data-id="pre_itens"><span class="txt">Comprar itens que faltam <span class="sub">(sol/repelente/itens de praia)</span></span></label>
+          <label><input type="checkbox" data-id="pre_sep"><span class="txt">Separar/lavar peças e montar “combinações”</span></label>
+
+          <div class="subsectionTitle">No dia da viagem</div>
+          <label><input type="checkbox" data-id="pre_plantas"><span class="txt">Regar as plantas</span></label>
+          <label><input type="checkbox" data-id="pre_pereciveis"><span class="txt">Descartar alimentos perecíveis que não durem até a volta</span></label>
+          <label><input type="checkbox" data-id="pre_lixo"><span class="txt">Esvaziar o lixo</span></label>
+          <label><input type="checkbox" data-id="pre_checagem_docs"><span class="txt">Documentos + cartões + celular carregado? <span class="sub">(confira antes de sair)</span></span></label>
+        </div>
+      </details>
+
+      <!-- ANOTAÇÕES -->
+      <div class="notesWrap">
+        <div class="notesTitle">📝 Anotações</div>
+        <textarea id="notesText" placeholder="Escreva aqui observações, itens para comprar, ideias de looks, etc."></textarea>
+        <div style="height:14px;"></div>
+      </div>
+
+      <footer>
+        As marcações e anotações ficam salvas neste celular/navegador.
+
+        <div class="pagebreak"></div>
+
+        <div class="sig">
+          <strong>Zest Estúdio de Viagens de Luxo.</strong><br>
+          <strong>O puro prazer de viajar.</strong><br>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Chave por página (evita misturar com versões antigas/arquivos diferentes)
+    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v8__";
+
+    // Anotações (texto)
+    const notesText = document.getElementById("notesText");
+    notesText.value = localStorage.getItem(pageKey + "notesText") || "";
+    notesText.addEventListener("input", () => {
+      localStorage.setItem(pageKey + "notesText", notesText.value);
+    });
+
+    // Checkboxes com memória + “riscar” quando marcado
+    const boxes = Array.from(document.querySelectorAll('input[type="checkbox"][data-id]'));
+
+    function syncStrike(box){
+      const lab = box.closest("label");
+      if(!lab) return;
+      lab.classList.toggle("checked", box.checked);
+    }
+
+    boxes.forEach(box => {
+      const key = pageKey + box.dataset.id;
+      box.checked = localStorage.getItem(key) === "true";
+      syncStrike(box);
+
+      box.addEventListener("change", () => {
+        localStorage.setItem(key, box.checked);
+        syncStrike(box);
+        updateCounts();
+      });
+    });
+
+    // Contadores (por prefixo do data-count)
+    function updateCounts(){
+      document.querySelectorAll("[data-count]").forEach(el=>{
+        const prefix = el.getAttribute("data-count");
+        const groupBoxes = boxes.filter(b => (b.dataset.id || "").startsWith(prefix));
+        const done = groupBoxes.filter(b => b.checked).length;
+        el.textContent = `${done}/${groupBoxes.length}`;
+      });
+    }
+    updateCounts();
+
+    // Abrir / fechar tudo
+    const allDetails = Array.from(document.querySelectorAll("details"));
+    document.getElementById("expandAll").addEventListener("click", () => {
+      allDetails.forEach(d => d.open = true);
+    });
+    document.getElementById("collapseAll").addEventListener("click", () => {
+      allDetails.forEach(d => d.open = false);
+    });
+
+    // Desmarcar tudo (zera só ESTA página, neste celular)
+    document.getElementById("clearAll").addEventListener("click", () => {
+      if(!confirm("Desmarcar tudo e apagar as anotações desta página?")) return;
+
+      boxes.forEach(box=>{
+        localStorage.removeItem(pageKey + box.dataset.id);
+        box.checked = false;
+        syncStrike(box);
+      });
+
+      localStorage.removeItem(pageKey + "notesText");
+      notesText.value = "";
+
+      updateCounts();
+    });
+  </script>
+</body>
+</html>
+```
