@@ -7,32 +7,42 @@
 
   <style>
     :root{
-      --bg:#fafafa;
-      --card:#ffffff;
-      --text:#1f1f1f;
-      --muted:#6b7280;
-      --line:#e9e9ee;
-      --pill:#f3f4f6;
+      /* Base */
+      --bg:    #B3D9EB;
+      --card:  #F9F7E1;
+      --text:  #1f1f1f;
+      --muted: #6b7280;
+
+      /* Estrutura */
+      --line:   #e4e2cf;
+      --pill:   #f1f2ec;
+      --radius: 18px;
       --shadow: 0 6px 18px rgba(0,0,0,.06);
-      --radius: 16px;
+
+      /* Marca */
+      --accent: #00BDA9; /* verde assinatura */
+      --soft:   #B3D9EB; /* azul atmosfera */
+      --deep:   #123826; /* verde escuro */
     }
+
+    *{ box-sizing:border-box; }
 
     body{
       margin:0;
       background:var(--bg);
       color:var(--text);
-      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
       line-height:1.5;
       padding:18px;
     }
 
-    .wrap{ max-width: 560px; margin: 0 auto; }
+    .wrap{ max-width:560px; margin:0 auto; }
 
     .card{
       background:var(--card);
       border:1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
       overflow:hidden;
     }
 
@@ -52,10 +62,11 @@
     .brand img{
       height:34px;
       object-fit:contain;
+      display:block;
     }
 
     h1{
-      font-size: 18px;
+      font-size:18px;
       margin:0;
       letter-spacing:.2px;
       text-align:center;
@@ -71,31 +82,45 @@
     .actions{
       display:flex;
       gap:10px;
-      padding: 12px 18px;
+      padding:12px 18px;
       border-bottom:1px solid var(--line);
       flex-wrap:wrap;
     }
 
     button{
       border:1px solid var(--line);
-      background:#fff;
+      background:var(--card);
       padding:10px 12px;
       border-radius:12px;
       font-size:14px;
       cursor:pointer;
+      transition:transform .05s ease, background .15s ease, border-color .15s ease;
     }
-    button:active{ transform: translateY(1px); }
-    .ghost{ background: transparent; }
+    button:hover{ background:var(--pill); }
+    button:active{ transform:translateY(1px); }
+
+    .ghost{
+      background:transparent;
+    }
+    .ghost:hover{
+      background:rgba(18,56,38,.06);
+      border-color:rgba(18,56,38,.18);
+    }
+
+    /* botão de ação mais “presença”, mas discreto */
+    #clearAll{
+      border-color:rgba(18,56,38,.18);
+    }
 
     details{
       border-bottom:1px solid var(--line);
-      padding: 0 18px;
+      padding:0 18px;
     }
 
     summary{
       list-style:none;
       cursor:pointer;
-      padding: 14px 0;
+      padding:14px 0;
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -123,7 +148,7 @@
     }
 
     .items{
-      padding: 0 0 14px 0;
+      padding:0 0 14px 0;
       display:flex;
       flex-direction:column;
       gap:10px;
@@ -136,7 +161,13 @@
       padding:10px 10px;
       border:1px solid var(--line);
       border-radius:14px;
-      background:#fff;
+      background:var(--card);
+      transition:background .15s ease, border-color .15s ease;
+    }
+
+    label:hover{
+      background:rgba(179,217,235,.22); /* usa o azul atmosfera bem sutil */
+      border-color:rgba(18,56,38,.14);
     }
 
     input[type="checkbox"]{
@@ -144,6 +175,8 @@
       width:18px;
       height:18px;
       flex:0 0 auto;
+      accent-color:var(--accent);
+      cursor:pointer;
     }
 
     .txt{
@@ -157,16 +190,12 @@
       color:var(--muted);
     }
 
-    /* “taxar”/riscar quando marcado */
-    label.checked{
-      opacity:.7;
-    }
-    label.checked .txt{
-      text-decoration: line-through;
-    }
+    /* riscar quando marcado */
+    label.checked{ opacity:.75; }
+    label.checked .txt{ text-decoration:line-through; }
 
     .notesWrap{
-      padding: 0 18px 18px 18px;
+      padding:0 18px 18px 18px;
       border-bottom:1px solid var(--line);
     }
 
@@ -174,6 +203,7 @@
       margin:18px 0 10px 0;
       font-weight:600;
       font-size:15px;
+      color:var(--deep);
     }
 
     textarea{
@@ -185,6 +215,12 @@
       font-size:14px;
       resize:vertical;
       outline:none;
+      background:var(--card);
+      color:var(--text);
+    }
+    textarea:focus{
+      border-color:rgba(0,189,169,.55);
+      box-shadow:0 0 0 4px rgba(0,189,169,.10);
     }
 
     footer{
@@ -200,17 +236,21 @@
     <div class="card">
       <header>
         <div class="brand">
+          <!-- Sugestão: renomeie o arquivo para algo sem espaços/! ex: logo-zest-ceu.png -->
           <img src="logo-zest-ceu.png" alt="Zest">
         </div>
 
         <h1>Checklist de Mala</h1>
-        <p class="subtitle">Antes do embarque, a Zest quer facilitar sua vida: por isso, fizemos uma pré-seleção cuidadosa com os itens essenciais da sua mala, para que nada importante fique para trás. Use este checklist à vontade, marque direto no celular, faça suas anotações e volte sempre que precisar — ao abrir novamente no mesmo dispositivo, tudo continuará salvo, para você viajar com mais tranquilidade e menos preocupação.</p>
+        <p class="subtitle">
+          A Zest quer facilitar sua vida: por isso, fizemos uma pré-seleção cuidadosa com os itens essenciais da sua mala, para que nada importante fique para trás.
+          Use este checklist à vontade, marque direto no celular, faça suas anotações e volte sempre que precisar — ao abrir novamente no mesmo dispositivo, tudo continuará salvo.
+        </p>
       </header>
 
       <div class="actions">
-        <button id="expandAll" class="ghost">Abrir categorias</button>
-        <button id="collapseAll" class="ghost">Fechar categorias</button>
-        <button id="clearAll">Desmarcar tudo</button>
+        <button id="expandAll" class="ghost" type="button">Abrir categorias</button>
+        <button id="collapseAll" class="ghost" type="button">Fechar categorias</button>
+        <button id="clearAll" type="button">Desmarcar tudo</button>
       </div>
 
       <!-- ITENS GERAIS -->
@@ -358,7 +398,9 @@
       </div>
 
       <footer>
-        As marcações e anotações ficam salvas neste celular/navegador. ✨
+        As marcações e anotações ficam salvas neste celular/navegador.
+        Zest Estúdio de Viagens de Luxo.
+        O puro prazer de viajar.
       </footer>
     </div>
   </div>
@@ -370,7 +412,9 @@
     // Anotações (texto)
     const notesText = document.getElementById("notesText");
     notesText.value = localStorage.getItem(pageKey + "notesText") || "";
-    notesText.addEventListener("input", () => localStorage.setItem(pageKey + "notesText", notesText.value));
+    notesText.addEventListener("input", () => {
+      localStorage.setItem(pageKey + "notesText", notesText.value);
+    });
 
     // Checkboxes com memória + “riscar” quando marcado
     const boxes = Array.from(document.querySelectorAll('input[type="checkbox"][data-id]'));
@@ -406,8 +450,12 @@
 
     // Abrir / fechar tudo
     const allDetails = Array.from(document.querySelectorAll("details"));
-    document.getElementById("expandAll").addEventListener("click", () => allDetails.forEach(d => d.open = true));
-    document.getElementById("collapseAll").addEventListener("click", () => allDetails.forEach(d => d.open = false));
+    document.getElementById("expandAll").addEventListener("click", () => {
+      allDetails.forEach(d => d.open = true);
+    });
+    document.getElementById("collapseAll").addEventListener("click", () => {
+      allDetails.forEach(d => d.open = false);
+    });
 
     // Desmarcar tudo (zera só ESTA página, neste celular)
     document.getElementById("clearAll").addEventListener("click", () => {
