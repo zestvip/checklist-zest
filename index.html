@@ -20,9 +20,9 @@
       --shadow: 0 6px 18px rgba(0,0,0,.06);
 
       /* Marca */
-      --accent: #00BDA9; /* verde assinatura */
-      --soft:   #B3D9EB; /* azul atmosfera */
-      --deep:   #123826; /* verde escuro */
+      --accent: #B3D9EB;
+      --soft:   #B3D9EB;
+      --deep:   #123826;
     }
 
     *{ box-sizing:border-box; }
@@ -99,18 +99,13 @@
     button:hover{ background:var(--pill); }
     button:active{ transform:translateY(1px); }
 
-    .ghost{
-      background:transparent;
-    }
+    .ghost{ background:transparent; }
     .ghost:hover{
       background:rgba(18,56,38,.06);
       border-color:rgba(18,56,38,.18);
     }
 
-    /* botão de ação mais “presença”, mas discreto */
-    #clearAll{
-      border-color:rgba(18,56,38,.18);
-    }
+    #clearAll{ border-color:rgba(18,56,38,.18); }
 
     details{
       border-bottom:1px solid var(--line);
@@ -166,7 +161,7 @@
     }
 
     label:hover{
-      background:rgba(179,217,235,.22); /* usa o azul atmosfera bem sutil */
+      background:rgba(179,217,235,.22);
       border-color:rgba(18,56,38,.14);
     }
 
@@ -190,7 +185,6 @@
       color:var(--muted);
     }
 
-    /* riscar quando marcado */
     label.checked{ opacity:.75; }
     label.checked .txt{ text-decoration:line-through; }
 
@@ -228,6 +222,32 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    .sig{
+      margin-top:12px;
+      color:var(--deep);
+      font-weight:700;
+      line-height:1.35;
+    }
+
+    /* “quebra de página” (útil ao imprimir/salvar em PDF) */
+    .pagebreak{ height:12px; }
+    @media print{
+      .pagebreak{ break-before: page; page-break-before: always; }
+    }
+
+    /* Sub-seções dentro de uma categoria */
+    .subsectionTitle{
+      margin:10px 0 2px 0;
+      padding:10px 12px;
+      border:1px solid rgba(18,56,38,.14);
+      border-radius:14px;
+      background:rgba(18,56,38,.06);
+      color:var(--deep);
+      font-weight:700;
+      font-size:13px;
+      letter-spacing:.2px;
+    }
   </style>
 </head>
 
@@ -236,7 +256,6 @@
     <div class="card">
       <header>
         <div class="brand">
-          <!-- Sugestão: renomeie o arquivo para algo sem espaços/! ex: logo-zest-ceu.png -->
           <img src="logo-zest-ceu.png" alt="Zest">
         </div>
 
@@ -278,6 +297,8 @@
           <div class="count" data-count="mao">0/0</div>
         </summary>
         <div class="items">
+          <label><input type="checkbox" data-id="mao_muda_roupa"><span class="txt">Uma muda de roupa <span class="sub">(para garantir o essencial caso a mala despachada atrase)</span></span></label>
+
           <label><input type="checkbox" data-id="mao_escova"><span class="txt">Escova de dente</span></label>
           <label><input type="checkbox" data-id="mao_pasta"><span class="txt">Pasta de dente</span></label>
           <label><input type="checkbox" data-id="mao_desodorante"><span class="txt">Desodorante roll-on/em barra</span></label>
@@ -374,6 +395,32 @@
         </div>
       </details>
 
+      <!-- ANTES DO EMBARQUE (com subseções) -->
+      <details>
+        <summary>
+          <div class="secTitle">Antes do embarque</div>
+          <div class="count" data-count="pre">0/0</div>
+        </summary>
+
+        <div class="items">
+          <div class="subsectionTitle">Uma a duas semanas antes do embarque</div>
+
+          <label><input type="checkbox" data-id="pre_pets"><span class="txt">Deixar a vida dos pets resolvida <span class="sub">(pet sitter, hotelzinho, ração, rotina e combinados)</span></span></label>
+          <label><input type="checkbox" data-id="pre_receita"><span class="txt">Conferir se algum medicamento controlado exige receita especial para a viagem</span></label>
+          <label><input type="checkbox" data-id="pre_pdf"><span class="txt">Entregar a alguém de confiança o PDF que a Zest criou com os dados da sua viagem</span></label>
+          <label><input type="checkbox" data-id="pre_dinheiro"><span class="txt">Comprar moeda do destino <span class="sub">(incluindo trocados para gorjetas)</span></span></label>
+          <label><input type="checkbox" data-id="pre_apps"><span class="txt">Baixar os aplicativos essenciais e configurar neles os cartões de crédito, quando necessário, para facilitar o uso durante a viagem</span></label>
+          <label><input type="checkbox" data-id="pre_itens"><span class="txt">Comprar itens que faltam</span></label>
+          <label><input type="checkbox" data-id="pre_sep"><span class="txt">Separar/lavar peças antes da viagem</span></label>
+          
+          <div class="subsectionTitle">No dia da viagem</div>
+          <label><input type="checkbox" data-id="pre_plantas"><span class="txt">Regar as plantas</span></label>
+          <label><input type="checkbox" data-id="pre_pereciveis"><span class="txt">Descartar alimentos perecíveis que não durem até a volta</span></label>
+          <label><input type="checkbox" data-id="pre_lixo"><span class="txt">Esvaziar o lixo</span></label>
+          <label><input type="checkbox" data-id="pre_docs"><span class="txt">Todos os documentos em mãos? Confira novamente!<span class="sub"></span></span></label>
+        </div>
+      </details>
+
       <!-- ANOTAÇÕES (TEXTO + CHECKLIST) -->
       <div class="notesWrap">
         <div class="notesTitle">📝 Anotações</div>
@@ -381,33 +428,24 @@
 
         <div style="height:14px;"></div>
 
-        <details open style="padding:0;border:0;">
-          <summary style="padding:0 0 12px 0;">
-            <div class="secTitle">Checklist de anotações</div>
-            <div class="count" data-count="note">0/0</div>
-          </summary>
-          <div class="items" style="padding:0;">
-            <label><input type="checkbox" data-id="note_comprar"><span class="txt">Comprar itens que faltam</span></label>
-            <label><input type="checkbox" data-id="note_lavar"><span class="txt">Separar / lavar peças antes da viagem</span></label>
-            <label><input type="checkbox" data-id="note_trocar_moeda"><span class="txt">Trocar moeda / organizar cartões</span></label>
-            <label><input type="checkbox" data-id="note_farmacia"><span class="txt">Organizar remédios / farmacinha</span></label>
-            <label><input type="checkbox" data-id="note_roupas"><span class="txt">Montar combinações / looks</span></label>
-            <label><input type="checkbox" data-id="note_documentos"><span class="txt">Conferir documentos</span></label>
-          </div>
-        </details>
       </div>
 
       <footer>
         As marcações e anotações ficam salvas neste celular/navegador.
-        Zest Estúdio de Viagens de Luxo.
-        O puro prazer de viajar.
+
+        <div class="pagebreak"></div>
+
+        <div class="sig">
+          <strong>Zest Estúdio de Viagens de Luxo.</strong><br>
+          <strong>O puro prazer de viajar.</strong><br>
+        </div>
       </footer>
     </div>
   </div>
 
   <script>
     // Chave por página (evita misturar com versões antigas/arquivos diferentes)
-    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v3__";
+    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v6__";
 
     // Anotações (texto)
     const notesText = document.getElementById("notesText");
