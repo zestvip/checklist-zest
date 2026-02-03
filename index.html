@@ -68,37 +68,6 @@
       font-size:13px;
     }
 
-    .meta{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top:12px;
-    }
-
-    .pill{
-      background:var(--pill);
-      border:1px solid var(--line);
-      border-radius:999px;
-      padding:8px 10px;
-      font-size:13px;
-      color:var(--muted);
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex:1;
-      min-width: 220px;
-    }
-
-    .pill input{
-      width:100%;
-      border:0;
-      outline:none;
-      background:transparent;
-      font-size:13px;
-      color:var(--text);
-    }
-
     .actions{
       display:flex;
       gap:10px;
@@ -230,24 +199,12 @@
   <div class="wrap">
     <div class="card">
       <header>
-        <!-- 1) Suba um arquivo chamado logo-zest.png no mesmo lugar do index.html -->
         <div class="brand">
           <img src="!logo céu transparente (recortado).png" alt="Zest">
         </div>
 
         <h1>🧳 Checklist de Mala</h1>
         <p class="subtitle">Antes do Embarque — marque no celular e acompanhe com facilidade.</p>
-
-        <div class="meta">
-          <div class="pill">
-            <span>✈️</span>
-            <input id="tripName" placeholder="Nome da viagem (ex.: Miami • Mar/2026)" />
-          </div>
-          <div class="pill">
-            <span>👤</span>
-            <input id="traveler" placeholder="Viajante (opcional)" />
-          </div>
-        </div>
       </header>
 
       <div class="actions">
@@ -284,7 +241,7 @@
           <label><input type="checkbox" data-id="mao_escova"><span class="txt">Escova de dente</span></label>
           <label><input type="checkbox" data-id="mao_pasta"><span class="txt">Pasta de dente</span></label>
           <label><input type="checkbox" data-id="mao_desodorante"><span class="txt">Desodorante roll-on/em barra</span></label>
-          <label><input type="checkbox" data-id="mao_powerbank"><span class="txt">Powerbank <span class="sub">(Importante: não pode despachar!)</span></span></label>
+          <label><input type="checkbox" data-id="mao_powerbank"><span class="txt">Powerbank <span class="sub">(importante: não pode despachar)</span></span></label>
           <label><input type="checkbox" data-id="mao_labial"><span class="txt">Hidratante labial</span></label>
           <label><input type="checkbox" data-id="mao_protetor_solar"><span class="txt">Protetor solar <span class="sub">(menos de 100 ml)</span></span></label>
           <label><input type="checkbox" data-id="mao_almofada"><span class="txt">Almofada de pescoço</span></label>
@@ -292,10 +249,10 @@
           <label><input type="checkbox" data-id="mao_casaco"><span class="txt">Casaco</span></label>
 
           <label><input type="checkbox" data-id="mao_remedios"><span class="txt">Remédios de uso livre <span class="sub">(cefaleia, enjoo, gases, diarreia, antisséptico, curativo, antigripal)</span></span></label>
-          <label><input type="checkbox" data-id="mao_controlados"><span class="txt">Remédios controlados <span class="sub">(dentro da caixa e junto com a receita médica)</span></span></label>
+          <label><input type="checkbox" data-id="mao_controlados"><span class="txt">Remédios controlados <span class="sub">(na caixa + junto com a receita)</span></span></label>
           <label><input type="checkbox" data-id="mao_alcool"><span class="txt">Álcool gel</span></label>
 
-          <label><input type="checkbox" data-id="mao_carregador"><span class="txt">Cabos e carregadores (celular, Kindle, smart watch)</span></label>
+          <label><input type="checkbox" data-id="mao_carregador"><span class="txt">Cabos e carregadores <span class="sub">(celular, Kindle, smart watch)</span></span></label>
           <label><input type="checkbox" data-id="mao_adaptador"><span class="txt">Adaptador de tomada</span></label>
           <label><input type="checkbox" data-id="mao_fone"><span class="txt">Fone de ouvido</span></label>
           <label><input type="checkbox" data-id="mao_kindle"><span class="txt">Livro/Kindle</span></label>
@@ -321,7 +278,7 @@
           <div class="count" data-count="nec">0/0</div>
         </summary>
         <div class="items">
-          <label><input type="checkbox" data-id="nec_kit_manicure"><span class="txt">Lixa de unha</span></label>
+          <label><input type="checkbox" data-id="nec_lixa"><span class="txt">Lixa de unha</span></label>
           <label><input type="checkbox" data-id="nec_pinca"><span class="txt">Pinça</span></label>
 
           <label><input type="checkbox" data-id="nec_touca"><span class="txt">Touca</span></label>
@@ -338,8 +295,6 @@
           <label><input type="checkbox" data-id="nec_demaq"><span class="txt">Demaquilante</span></label>
           <label><input type="checkbox" data-id="nec_algodao"><span class="txt">Disco de algodão</span></label>
           <label><input type="checkbox" data-id="nec_cotonete"><span class="txt">Cotonete</span></label>
-
-          </label>
         </div>
       </details>
 
@@ -388,7 +343,7 @@
 
         <details open style="padding:0;border:0;">
           <summary style="padding:0 0 12px 0;">
-            <div class="secTitle">✅ Checklist de anotações</div>
+            <div class="secTitle">Checklist de anotações</div>
             <div class="count" data-count="note">0/0</div>
           </summary>
           <div class="items" style="padding:0;">
@@ -403,29 +358,21 @@
       </div>
 
       <footer>
-        As marcações e anotações ficam salvas neste celular/navegador. ✨<br>
+        As marcações e anotações ficam salvas neste celular/navegador. ✨
       </footer>
     </div>
   </div>
 
   <script>
-    // 1) Chave por página (evita misturar com versões antigas/arquivos diferentes)
-    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v2__";
+    // Chave por página (evita misturar com versões antigas/arquivos diferentes)
+    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v3__";
 
-    // 2) Topo (nome da viagem / viajante)
-    const tripName = document.getElementById("tripName");
-    const traveler = document.getElementById("traveler");
-    tripName.value = localStorage.getItem(pageKey + "tripName") || "";
-    traveler.value = localStorage.getItem(pageKey + "traveler") || "";
-    tripName.addEventListener("input", () => localStorage.setItem(pageKey + "tripName", tripName.value));
-    traveler.addEventListener("input", () => localStorage.setItem(pageKey + "traveler", traveler.value));
-
-    // 3) Anotações (texto)
+    // Anotações (texto)
     const notesText = document.getElementById("notesText");
     notesText.value = localStorage.getItem(pageKey + "notesText") || "";
     notesText.addEventListener("input", () => localStorage.setItem(pageKey + "notesText", notesText.value));
 
-    // 4) Checkboxes com memória + “riscar” quando marcado
+    // Checkboxes com memória + “riscar” quando marcado
     const boxes = Array.from(document.querySelectorAll('input[type="checkbox"][data-id]'));
 
     function syncStrike(box){
@@ -446,7 +393,7 @@
       });
     });
 
-    // 5) Contadores (por prefixo do data-count)
+    // Contadores (por prefixo do data-count)
     function updateCounts(){
       document.querySelectorAll("[data-count]").forEach(el=>{
         const prefix = el.getAttribute("data-count");
@@ -457,28 +404,22 @@
     }
     updateCounts();
 
-    // 6) Abrir / fechar tudo
+    // Abrir / fechar tudo
     const allDetails = Array.from(document.querySelectorAll("details"));
     document.getElementById("expandAll").addEventListener("click", () => allDetails.forEach(d => d.open = true));
     document.getElementById("collapseAll").addEventListener("click", () => allDetails.forEach(d => d.open = false));
 
-    // 7) Limpar esta viagem (zera só ESTA página, neste celular)
+    // Desmarcar tudo (zera só ESTA página, neste celular)
     document.getElementById("clearAll").addEventListener("click", () => {
-      if(!confirm("Limpar marcações e anotações desta viagem?")) return;
+      if(!confirm("Desmarcar tudo e apagar as anotações desta página?")) return;
 
-      // limpa caixas
       boxes.forEach(box=>{
         localStorage.removeItem(pageKey + box.dataset.id);
         box.checked = false;
         syncStrike(box);
       });
 
-      // limpa campos
-      localStorage.removeItem(pageKey + "tripName");
-      localStorage.removeItem(pageKey + "traveler");
       localStorage.removeItem(pageKey + "notesText");
-      tripName.value = "";
-      traveler.value = "";
       notesText.value = "";
 
       updateCounts();
