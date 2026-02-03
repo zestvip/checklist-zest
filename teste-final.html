@@ -21,9 +21,9 @@
       --shadow: 0 6px 18px rgba(0,0,0,.06);
 
       /* Marca */
-      --accent: #00BDA9; /* verde assinatura */
-      --soft:   #B3D9EB; /* azul atmosfera */
-      --deep:   #123826; /* verde escuro */
+      --accent: #00BDA9;
+      --soft:   #B3D9EB;
+      --deep:   #123826;
     }
 
     *{ box-sizing:border-box; }
@@ -232,9 +232,7 @@
     }
 
     /* “quebra de página” (útil ao imprimir/salvar em PDF) */
-    .pagebreak{
-      height:12px;
-    }
+    .pagebreak{ height:12px; }
     @media print{
       .pagebreak{ break-before: page; page-break-before: always; }
     }
@@ -385,25 +383,42 @@
         </div>
       </details>
 
-      <!-- CHECKLIST ANTES DO EMBARQUE -->
+      <!-- UMA SEMANA ANTES DO EMBARQUE -->
       <details>
         <summary>
-          <div class="secTitle">Antes do embarque</div>
-          <div class="count" data-count="pre">0/0</div>
+          <div class="secTitle">Uma semana antes do embarque</div>
+          <div class="count" data-count="wk">0/0</div>
         </summary>
-
         <div class="items">
-          <label><input type="checkbox" data-id="pre_01_pets"><span class="txt">Uma semana antes: deixar a vida dos pets resolvida <span class="sub">(pet sitter, hotelzinho, ração, rotina e combinados)</span></span></label>
-          <label><input type="checkbox" data-id="pre_02_receita"><span class="txt">Uma semana antes: conferir se algum medicamento controlado exige receita especial para a viagem</span></label>
-          <label><input type="checkbox" data-id="pre_03_pdf"><span class="txt">Uma semana antes: deixar com alguém de confiança o PDF da Zest com os dados da viagem</span></label>
-          <label><input type="checkbox" data-id="pre_04_dinheiro"><span class="txt">Uma semana antes: comprar moeda do destino <span class="sub">(incluindo trocados para gorjetas)</span></span></label>
+          <label><input type="checkbox" data-id="wk_01_pets"><span class="txt">Deixar a vida dos pets resolvida <span class="sub">(pet sitter, hotelzinho, ração, rotina e combinados)</span></span></label>
+          <label><input type="checkbox" data-id="wk_02_receita"><span class="txt">Conferir se algum medicamento controlado exige receita especial para a viagem</span></label>
+          <label><input type="checkbox" data-id="wk_03_pdf"><span class="txt">Deixar com alguém de confiança o PDF da Zest com os dados da viagem</span></label>
+          <label><input type="checkbox" data-id="wk_04_dinheiro"><span class="txt">Comprar moeda do destino <span class="sub">(incluindo trocados para gorjetas)</span></span></label>
+        </div>
+      </details>
 
-          <label><input type="checkbox" data-id="pre_05_apps"><span class="txt">1–2 dias antes: baixar os apps necessários e cadastrar o cartão quando for preciso</span></label>
+      <!-- 1–2 DIAS ANTES -->
+      <details>
+        <summary>
+          <div class="secTitle">Um ou dois dias antes</div>
+          <div class="count" data-count="d2">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="d2_01_apps"><span class="txt">Baixar os apps necessários e cadastrar o cartão quando for preciso</span></label>
+        </div>
+      </details>
 
-          <label><input type="checkbox" data-id="pre_06_plantas"><span class="txt">No dia: regar as plantas</span></label>
-          <label><input type="checkbox" data-id="pre_07_pereciveis"><span class="txt">No dia: descartar alimentos perecíveis que não durem até a volta</span></label>
-          <label><input type="checkbox" data-id="pre_08_lixo"><span class="txt">No dia: esvaziar o lixo</span></label>
-          <label><input type="checkbox" data-id="pre_09_docs"><span class="txt">No dia: documentos em mãos? <span class="sub">(passaporte/RG, comprovante de vacina, se aplicável)</span></span></label>
+      <!-- NO DIA DA VIAGEM -->
+      <details>
+        <summary>
+          <div class="secTitle">No dia da viagem</div>
+          <div class="count" data-count="day">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="day_01_plantas"><span class="txt">Regar as plantas</span></label>
+          <label><input type="checkbox" data-id="day_02_pereciveis"><span class="txt">Descartar alimentos perecíveis que não durem até a volta</span></label>
+          <label><input type="checkbox" data-id="day_03_lixo"><span class="txt">Esvaziar o lixo</span></label>
+          <label><input type="checkbox" data-id="day_04_docs"><span class="txt">Documentos em mãos? <span class="sub">(passaporte/RG, comprovante de vacina, se aplicável)</span></span></label>
         </div>
       </details>
 
@@ -438,7 +453,6 @@
         <div class="sig">
           <strong>Zest Estúdio de Viagens de Luxo.</strong><br>
           <strong>O puro prazer de viajar.</strong>
-          <strong>💎</strong>
         </div>
       </footer>
     </div>
@@ -446,7 +460,7 @@
 
   <script>
     // Chave por página (evita misturar com versões antigas/arquivos diferentes)
-    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v4__";
+    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v5__";
 
     // Anotações (texto)
     const notesText = document.getElementById("notesText");
