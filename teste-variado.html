@@ -57,7 +57,12 @@
     }
     .brand img{ height:34px; object-fit:contain; display:block; }
 
-    h1{ font-size:18px; margin:0; text-align:center; letter-spacing:.2px; }
+    h1{
+      font-size:18px;
+      margin:0;
+      text-align:center;
+      letter-spacing:.2px;
+    }
 
     .subtitle{
       text-align:center;
@@ -114,8 +119,9 @@
       display:flex;
       gap:10px;
       align-items:center;
-      font-weight:700;
+      font-weight:800;
       font-size:15px;
+      color:var(--deep);
     }
 
     .count{
@@ -171,11 +177,36 @@
       border-bottom:1px solid var(--line);
     }
     .gateTitle{
-      font-weight:800;
+      font-weight:900;
       color:var(--deep);
       margin:0 0 10px 0;
       font-size:14px;
     }
+
+    /* Sub-seções visuais */
+    .subsectionTitle{
+      margin:10px 0 2px 0;
+      padding:10px 12px;
+      border:1px solid rgba(18,56,38,.14);
+      border-radius:14px;
+      background:rgba(18,56,38,.06);
+      color:var(--deep);
+      font-weight:800;
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+
+    /* Caixas de aviso */
+    .noteBox{
+      border:1px solid rgba(18,56,38,.14);
+      background:rgba(179,217,235,.20);
+      border-radius:14px;
+      padding:10px 12px;
+      color:var(--text);
+      font-size:12.5px;
+      line-height:1.45;
+    }
+    .noteBox strong{ color:var(--deep); }
 
     /* Seções condicionais */
     .conditional[hidden]{ display:none !important; }
@@ -188,7 +219,7 @@
     .sig{
       margin-top:12px;
       color:var(--deep);
-      font-weight:700;
+      font-weight:800;
       line-height:1.35;
     }
     .pagebreak{ height:12px; }
@@ -205,9 +236,10 @@
         <div class="brand">
           <img src="logo-zest-ceu.png" alt="Zest">
         </div>
+
         <h1>Checklist de Mala</h1>
         <p class="subtitle">
-          Marque o que fizer sentido para a sua viagem, salve no celular e volte quando quiser — as marcações ficam guardadas neste dispositivo.
+          Marque o que fizer sentido para a sua viagem. As marcações ficam salvas neste dispositivo.
         </p>
       </header>
 
@@ -217,84 +249,237 @@
         <button id="clearAll" type="button">Desmarcar tudo</button>
       </div>
 
-      <!-- MARQUE AQUI SE... (múltipla escolha) -->
+      <!-- MARQUE AQUI SE... -->
       <div class="gate">
-        <div class="gateTitle">Marque aqui se…</div>
+        <div class="gateTitle">Marque aqui se… (para aparecerem itens extras)</div>
         <div class="items" style="padding:0;">
           <label>
-            <input type="checkbox" class="gateToggle" data-gate-id="gate_crianca" data-show="sec-crianca" data-prefix="crianca_">
-            <span class="txt">Você vai viajar com criança <span class="sub">(abre uma seção com itens extras)</span></span>
+            <input type="checkbox" class="gateToggle" data-gate-id="gate_calor" data-show="sec-calor" data-prefix="calor_">
+            <span class="txt">Seu destino é de calor <span class="sub">(piscina, praia, ar-condicionado, roupas molhadas)</span></span>
           </label>
 
           <label>
-            <input type="checkbox" class="gateToggle" data-gate-id="gate_praia" data-show="sec-praia" data-prefix="praia_">
-            <span class="txt">Você vai para a praia <span class="sub">(abre a seção praia)</span></span>
+            <input type="checkbox" class="gateToggle" data-gate-id="gate_frio" data-show="sec-frio" data-prefix="frio_">
+            <span class="txt">Seu destino é de frio <span class="sub">(térmicos, hidratação, impermeáveis)</span></span>
           </label>
 
           <label>
-            <input type="checkbox" class="gateToggle" data-gate-id="gate_internacional" data-show="sec-internacional" data-prefix="inter_">
-            <span class="txt">A viagem é internacional <span class="sub">(documentos, adaptador, etc.)</span></span>
+            <input type="checkbox" class="gateToggle" data-gate-id="gate_trabalho" data-show="sec-trabalho" data-prefix="trab_">
+            <span class="txt">A viagem envolve trabalho <span class="sub">(laptop, documentos, roupas sociais)</span></span>
+          </label>
+
+          <label>
+            <input type="checkbox" class="gateToggle" data-gate-id="gate_criancas" data-show="sec-criancas" data-prefix="kids_">
+            <span class="txt">Você vai viajar com crianças <span class="sub">(itens e praticidades extras)</span></span>
           </label>
         </div>
       </div>
 
-      <!-- ITENS GERAIS (sempre aparece) -->
+      <!-- DOCUMENTOS E ITENS PRÁTICOS -->
       <details open>
         <summary>
-          <div class="secTitle">Itens gerais</div>
-          <div class="count" data-count="gerais">0/0</div>
+          <div class="secTitle">Documentos e itens práticos</div>
+          <div class="count" data-count="doc">0/0</div>
         </summary>
+
         <div class="items">
-          <label><input type="checkbox" data-id="gerais_rg_passaporte"><span class="txt">RG / passaporte <span class="sub">(se aplicável)</span></span></label>
-          <label><input type="checkbox" data-id="gerais_cartoes_credito"><span class="txt">Cartões de crédito <span class="sub">(com aviso de viagem, se o banco exigir)</span></span></label>
-          <label><input type="checkbox" data-id="gerais_chip"><span class="txt">Chip / eSIM</span></label>
-          <label><input type="checkbox" data-id="gerais_cadeados"><span class="txt">Cadeados</span></label>
-          <label><input type="checkbox" data-id="gerais_rastreador"><span class="txt">Rastreador de bagagem</span></label>
+          <label><input type="checkbox" data-id="doc_rg_passaporte"><span class="txt">RG / passaporte <span class="sub">(+ passaporte com visto, se separado)</span></span></label>
+          <label><input type="checkbox" data-id="doc_cartoes_credito"><span class="txt">Cartões de crédito <span class="sub">(com o aviso de viagem já feito no banco)</span></span></label>
+          <label><input type="checkbox" data-id="doc_prepagos"><span class="txt">Cartões pré-pagos <span class="sub">(Wise, Nomad, etc.)</span></span></label>
+          <label><input type="checkbox" data-id="doc_chip"><span class="txt">Chip internacional ou eSIM</span></label>
+          <label><input type="checkbox" data-id="doc_civd"><span class="txt">Certificado Internacional de Vacinação (CIVD) <span class="sub">(se aplicável)</span></span></label>
+          <label><input type="checkbox" data-id="doc_cnh"><span class="txt">CNH física <span class="sub">(se for alugar carro)</span></span></label>
+          <label><input type="checkbox" data-id="doc_pid"><span class="txt">Permissão Internacional para Dirigir (PID) <span class="sub">(se for alugar carro)</span></span></label>
+          <label><input type="checkbox" data-id="doc_etiquetas"><span class="txt">Etiquetas de bagagem <span class="sub">(internas e externas)</span></span></label>
+          <label><input type="checkbox" data-id="doc_seguro"><span class="txt">Comprovante do seguro-viagem <span class="sub">(em papel ou no app)</span></span></label>
+          <label><input type="checkbox" data-id="doc_meia_compressao"><span class="txt">Meia de compressão <span class="sub">(converse com seu médico!)</span></span></label>
+          <label><input type="checkbox" data-id="doc_comprovantes"><span class="txt">Passagens e comprovantes de reserva <span class="sub">(voos, hotéis, transfers, passeios) — estarão no app</span></span></label>
+          <label><input type="checkbox" data-id="doc_rastreador"><span class="txt">Rastreador de bagagem</span></label>
+          <label><input type="checkbox" data-id="doc_cadeados"><span class="txt">Cadeados</span></label>
+
+          <div class="noteBox">
+            <strong>IMPORTANTE:</strong> A ANAC impõe restrições ao transporte de power banks em voos.
+            Em geral, são permitidos somente modelos de até <strong>25.000 mAh</strong> e apenas na <strong>bagagem de mão</strong>.
+            Acima dessa capacidade, verifique as regras da companhia aérea antes do embarque.
+          </div>
         </div>
       </details>
 
-      <!-- CONDICIONAL: CRIANÇA -->
-      <details class="conditional" id="sec-crianca" hidden>
+      <!-- MALA DE MÃO -->
+      <details>
         <summary>
-          <div class="secTitle">Itens para criança</div>
-          <div class="count" data-count="crianca">0/0</div>
+          <div class="secTitle">Itens importantes (mala de mão)</div>
+          <div class="count" data-count="mao">0/0</div>
         </summary>
+
         <div class="items">
-          <label><input type="checkbox" data-id="crianca_docs"><span class="txt">Documentos da criança <span class="sub">(RG/passaporte, autorizações, se aplicável)</span></span></label>
-          <label><input type="checkbox" data-id="crianca_remedios"><span class="txt">Remédios básicos / receita, se necessário</span></label>
-          <label><input type="checkbox" data-id="crianca_lanchinho"><span class="txt">Lanchinhos e garrafinha</span></label>
-          <label><input type="checkbox" data-id="crianca_entretenimento"><span class="txt">Entretenimento para o caminho <span class="sub">(livrinho, brinquedo pequeno, fone)</span></span></label>
-          <label><input type="checkbox" data-id="crianca_fraldas"><span class="txt">Fraldas / lenços / trocador <span class="sub">(se usar)</span></span></label>
+          <div class="noteBox">
+            <strong>Lembrete:</strong> líquidos só em frascos de até <strong>100 ml</strong> e dentro de um saco/necessaire transparente.
+            Aerossóis <strong>podem</strong> ser barrados.
+            Na mala de bordo, evite itens de valor — pode ser exigido o despacho. Deixe itens essenciais no item pessoal (bolsa/mochila pequena), que permanece com você o tempo todo.
+          </div>
+
+          <label><input type="checkbox" data-id="mao_escova_pasta"><span class="txt">Escova/pasta de dente</span></label>
+          <label><input type="checkbox" data-id="mao_desodorante"><span class="txt">Desodorante roll-on/creme</span></label>
+          <label><input type="checkbox" data-id="mao_hidratante"><span class="txt">Hidratante facial/labial</span></label>
+          <label><input type="checkbox" data-id="mao_casaco"><span class="txt">Casaco leve</span></label>
+          <label><input type="checkbox" data-id="mao_conforto"><span class="txt">Almofada de pescoço, máscara de dormir, protetor auricular</span></label>
+          <label><input type="checkbox" data-id="mao_kindle"><span class="txt">Livro/Kindle</span></label>
+          <label><input type="checkbox" data-id="mao_fone"><span class="txt">Fone de ouvido</span></label>
+          <label><input type="checkbox" data-id="mao_cabo_carregador"><span class="txt">Cabo e carregador</span></label>
+          <label><input type="checkbox" data-id="mao_adaptador"><span class="txt">Adaptador de tomada</span></label>
+          <label><input type="checkbox" data-id="mao_caneta"><span class="txt">Caneta</span></label>
+          <label><input type="checkbox" data-id="mao_joias"><span class="txt">Joias/bijuterias</span></label>
+          <label><input type="checkbox" data-id="mao_make"><span class="txt">Maquiagem</span></label>
+          <label><input type="checkbox" data-id="mao_oculos_grau"><span class="txt">Óculos de grau</span></label>
+          <label><input type="checkbox" data-id="mao_oculos_sol"><span class="txt">Óculos escuros</span></label>
+          <label><input type="checkbox" data-id="mao_roupa_reserva"><span class="txt">Roupa reserva em caso de extravio <span class="sub">(1 troca completa)</span></span></label>
+          <label><input type="checkbox" data-id="mao_absorvente"><span class="txt">Absorvente íntimo</span></label>
+          <label><input type="checkbox" data-id="mao_guarda_chuva"><span class="txt">Guarda-chuva</span></label>
+          <label><input type="checkbox" data-id="mao_meds_comuns"><span class="txt">Medicamentos comuns <span class="sub">(antiemético, antigases, antidiarreico, analgésico, antigripal, pastilha, antiácido)</span></span></label>
+          <label><input type="checkbox" data-id="mao_meds_continuo"><span class="txt">Medicamentos de uso contínuo</span></label>
+          <label><input type="checkbox" data-id="mao_meds_controlados"><span class="txt">Medicamentos controlados <span class="sub">(com receita)</span></span></label>
         </div>
       </details>
 
-      <!-- CONDICIONAL: PRAIA -->
-      <details class="conditional" id="sec-praia" hidden>
+      <!-- NECESSAIRES -->
+      <details>
         <summary>
-          <div class="secTitle">Praia</div>
-          <div class="count" data-count="praia">0/0</div>
+          <div class="secTitle">Necessaires (dentro da mala)</div>
+          <div class="count" data-count="nec">0/0</div>
         </summary>
+
         <div class="items">
-          <label><input type="checkbox" data-id="praia_protetor"><span class="txt">Protetor solar</span></label>
-          <label><input type="checkbox" data-id="praia_possol"><span class="txt">Pós-sol / hidratante</span></label>
-          <label><input type="checkbox" data-id="praia_chapeu"><span class="txt">Chapéu / boné</span></label>
-          <label><input type="checkbox" data-id="praia_oculos"><span class="txt">Óculos de sol</span></label>
-          <label><input type="checkbox" data-id="praia_chinelo"><span class="txt">Chinelo</span></label>
+          <div class="subsectionTitle">Banho</div>
+          <label><input type="checkbox" data-id="nec_b_shampoo"><span class="txt">Shampoo</span></label>
+          <label><input type="checkbox" data-id="nec_b_condicionador"><span class="txt">Condicionador</span></label>
+          <label><input type="checkbox" data-id="nec_b_sabonete"><span class="txt">Sabonete</span></label>
+          <label><input type="checkbox" data-id="nec_b_escova_pasta"><span class="txt">Escova/pasta de dente</span></label>
+
+          <div class="subsectionTitle">Cuidados</div>
+          <label><input type="checkbox" data-id="nec_c_leavein"><span class="txt">Leave-in</span></label>
+          <label><input type="checkbox" data-id="nec_c_hidratante_corporal"><span class="txt">Hidratante corporal</span></label>
+          <label><input type="checkbox" data-id="nec_c_skincare"><span class="txt">Skincare <span class="sub">(hidratante, limpador, demaquilante)</span></span></label>
+          <label><input type="checkbox" data-id="nec_c_solar"><span class="txt">Protetor solar <span class="sub">(facial e corporal)</span></span></label>
+          <label><input type="checkbox" data-id="nec_c_desodorante"><span class="txt">Desodorante <span class="sub">(pode ser aerossol)</span></span></label>
+          <label><input type="checkbox" data-id="nec_c_desodorante_pes"><span class="txt">Desodorante para os pés</span></label>
+          <label><input type="checkbox" data-id="nec_c_cotonete"><span class="txt">Cotonete</span></label>
+
+          <div class="subsectionTitle">Beleza</div>
+          <label><input type="checkbox" data-id="nec_be_escova_pente"><span class="txt">Escova/pente</span></label>
+          <label><input type="checkbox" data-id="nec_be_prendedores"><span class="txt">Prendedores de cabelo</span></label>
+          <label><input type="checkbox" data-id="nec_be_perfume"><span class="txt">Perfume</span></label>
+          <label><input type="checkbox" data-id="nec_be_lente_contato"><span class="txt">Lente de contato <span class="sub">(estojo e líquido)</span></span></label>
+
+          <div class="subsectionTitle">Emergências</div>
+          <label><input type="checkbox" data-id="nec_e_pinca_lixa"><span class="txt">Pinça/lixa de unha</span></label>
+          <label><input type="checkbox" data-id="nec_e_primeiros_socorros"><span class="txt">Kit de primeiros-socorros <span class="sub">(band-aid, esparadrapo, antisséptico, gaze)</span></span></label>
+          <label><input type="checkbox" data-id="nec_e_sacos_plasticos"><span class="txt">Saquinhos plásticos</span></label>
+          <label><input type="checkbox" data-id="nec_e_porta_roupa_suja"><span class="txt">Porta-roupa suja</span></label>
+          <label><input type="checkbox" data-id="nec_e_repelente"><span class="txt">Repelente</span></label>
         </div>
       </details>
 
-      <!-- CONDICIONAL: INTERNACIONAL -->
-      <details class="conditional" id="sec-internacional" hidden>
+      <!-- ROUPAS -->
+      <details>
         <summary>
-          <div class="secTitle">Internacional</div>
-          <div class="count" data-count="inter">0/0</div>
+          <div class="secTitle">Roupas</div>
+          <div class="count" data-count="r">0/0</div>
+        </summary>
+
+        <div class="items">
+          <div class="subsectionTitle">Íntimos</div>
+          <label><input type="checkbox" data-id="r_intimos"><span class="txt">Roupas de baixo <span class="sub">(calcinha, cueca, sutiã)</span></span></label>
+          <label><input type="checkbox" data-id="r_meias"><span class="txt">Meias</span></label>
+          <label><input type="checkbox" data-id="r_pijama"><span class="txt">Pijama/camisola</span></label>
+
+          <div class="subsectionTitle">Geral</div>
+          <label><input type="checkbox" data-id="r_calca_bermuda"><span class="txt">Calça/bermuda</span></label>
+          <label><input type="checkbox" data-id="r_saia_shorts"><span class="txt">Saia (curta/longa)/shorts</span></label>
+          <label><input type="checkbox" data-id="r_camisetas_blusas"><span class="txt">Camisetas e blusas</span></label>
+
+          <div class="subsectionTitle">Frio</div>
+          <label><input type="checkbox" data-id="r_casacos"><span class="txt">Casacos e blusas de frio</span></label>
+          <label><input type="checkbox" data-id="r_luva"><span class="txt">Luva</span></label>
+          <label><input type="checkbox" data-id="r_touca"><span class="txt">Touca</span></label>
+          <label><input type="checkbox" data-id="r_cachecol"><span class="txt">Lenço/cachecol</span></label>
+          <label><input type="checkbox" data-id="r_segunda_pele"><span class="txt">Segunda pele</span></label>
+          <label><input type="checkbox" data-id="r_meia_calca"><span class="txt">Meia-calça</span></label>
+
+          <div class="subsectionTitle">Acessórios</div>
+          <label><input type="checkbox" data-id="r_chinelo"><span class="txt">Chinelo</span></label>
+          <label><input type="checkbox" data-id="r_calcados"><span class="txt">Sapato/bota/sandália/tênis</span></label>
+          <label><input type="checkbox" data-id="r_bolsa"><span class="txt">Bolsa</span></label>
+          <label><input type="checkbox" data-id="r_acessorios_versateis"><span class="txt">Acessórios versáteis <span class="sub">(lenços, cintos)</span></span></label>
+
+          <div class="subsectionTitle">Praia/academia</div>
+          <label><input type="checkbox" data-id="r_banho"><span class="txt">Roupas de banho <span class="sub">(biquínis, maiôs, sungas)</span></span></label>
+          <label><input type="checkbox" data-id="r_saida_praia"><span class="txt">Saída de praia/bolsa de praia</span></label>
+          <label><input type="checkbox" data-id="r_chapeu"><span class="txt">Chapéu/boné</span></label>
+          <label><input type="checkbox" data-id="r_academia"><span class="txt">Academia <span class="sub">(top/calça/blusa/tênis)</span></span></label>
+        </div>
+      </details>
+
+      <!-- ITENS PARA PERSONALIZAR (CONDICIONAIS) -->
+      <details class="conditional" id="sec-calor" hidden>
+        <summary>
+          <div class="secTitle">Itens para personalizar — destinos de calor</div>
+          <div class="count" data-count="calor">0/0</div>
         </summary>
         <div class="items">
-          <label><input type="checkbox" data-id="inter_passaporte"><span class="txt">Passaporte + visto (se necessário)</span></label>
-          <label><input type="checkbox" data-id="inter_seguro"><span class="txt">Seguro-viagem <span class="sub">(apólice e contatos de emergência)</span></span></label>
-          <label><input type="checkbox" data-id="inter_adaptador"><span class="txt">Adaptador de tomada</span></label>
-          <label><input type="checkbox" data-id="inter_moeda"><span class="txt">Moeda / cartão internacional <span class="sub">(incluindo trocados para gorjetas)</span></span></label>
-          <label><input type="checkbox" data-id="inter_apps"><span class="txt">Apps úteis <span class="sub">(mapas, transporte, companhia aérea, tradução)</span></span></label>
+          <label><input type="checkbox" data-id="calor_casaco_fino"><span class="txt">Casaco fino <span class="sub">(para o ar-condicionado)</span></span></label>
+          <label><input type="checkbox" data-id="calor_pos_sol"><span class="txt">Shampoo e condicionador pós-sol</span></label>
+          <label><input type="checkbox" data-id="calor_sacos_molhadas"><span class="txt">Sacos para roupas molhadas</span></label>
+        </div>
+      </details>
+
+      <details class="conditional" id="sec-frio" hidden>
+        <summary>
+          <div class="secTitle">Itens para personalizar — destinos de frio</div>
+          <div class="count" data-count="frio">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="frio_hidratante_labial"><span class="txt">Hidratante labial, creme para as mãos</span></label>
+          <label><input type="checkbox" data-id="frio_segunda_pele"><span class="txt">Segunda pele térmica</span></label>
+          <label><input type="checkbox" data-id="frio_malhas"><span class="txt">Malhas, suéteres e blusas quentes</span></label>
+          <label><input type="checkbox" data-id="frio_casaco_pesado"><span class="txt">Casaco pesado impermeável</span></label>
+          <label><input type="checkbox" data-id="frio_calcas_termicas"><span class="txt">Calças térmicas</span></label>
+          <label><input type="checkbox" data-id="frio_botas"><span class="txt">Botas impermeáveis</span></label>
+          <label><input type="checkbox" data-id="frio_hidratacao_intensiva"><span class="txt">Hidratante corporal e facial intensivo</span></label>
+          <label><input type="checkbox" data-id="frio_sacos_compressao"><span class="txt">Sacos de compressão <span class="sub">(para roupas volumosas)</span></span></label>
+        </div>
+      </details>
+
+      <details class="conditional" id="sec-trabalho" hidden>
+        <summary>
+          <div class="secTitle">Itens para personalizar — trabalho</div>
+          <div class="count" data-count="trab">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="trab_cartao_corp"><span class="txt">Cartão corporativo / meios de pagamento</span></label>
+          <label><input type="checkbox" data-id="trab_cartoes_visita"><span class="txt">Cartão de visitas e materiais de trabalho</span></label>
+          <label><input type="checkbox" data-id="trab_docs_offline"><span class="txt">Apresentações / documentos salvos offline e em nuvem</span></label>
+          <label><input type="checkbox" data-id="trab_laptop"><span class="txt">Laptop, mouse e carregador</span></label>
+          <label><input type="checkbox" data-id="trab_bloco_caneta"><span class="txt">Bloco de notas e caneta</span></label>
+          <label><input type="checkbox" data-id="trab_sociais"><span class="txt">Roupas sociais <span class="sub">(camisas, calças, vestidos)</span></span></label>
+          <label><input type="checkbox" data-id="trab_blazer"><span class="txt">Blazer ou casaco formal</span></label>
+          <label><input type="checkbox" data-id="trab_sapato_social"><span class="txt">Sapato social e confortável</span></label>
+          <label><input type="checkbox" data-id="trab_casuais"><span class="txt">Roupas casuais para o tempo livre</span></label>
+          <label><input type="checkbox" data-id="trab_adaptador_universal"><span class="txt">Adaptador universal</span></label>
+        </div>
+      </details>
+
+      <details class="conditional" id="sec-criancas" hidden>
+        <summary>
+          <div class="secTitle">Itens para personalizar — crianças</div>
+          <div class="count" data-count="kids">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="kids_documentos"><span class="txt">Documentos da criança <span class="sub">(RG/passaporte, autorizações, se aplicável)</span></span></label>
+          <label><input type="checkbox" data-id="kids_meds"><span class="txt">Medicamentos e itens essenciais <span class="sub">(o básico do dia a dia)</span></span></label>
+          <label><input type="checkbox" data-id="kids_lanches"><span class="txt">Lanches e garrafinha</span></label>
+          <label><input type="checkbox" data-id="kids_entretenimento"><span class="txt">Entretenimento de viagem <span class="sub">(livrinho, brinquedo pequeno, fone)</span></span></label>
+          <label><input type="checkbox" data-id="kids_lenços"><span class="txt">Lenços umedecidos</span></label>
         </div>
       </details>
 
@@ -312,24 +497,17 @@
   </div>
 
   <script>
-    // Versão/chave da página
-    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v_cond_01__";
+    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v_checklist_base_01__";
+    const storageKey = (id) => pageKey + id;
 
-    // Util
-    function storageKey(id){ return pageKey + id; }
-
-    // Riscar
     function syncStrike(box){
       const lab = box.closest("label");
       if(!lab) return;
       lab.classList.toggle("checked", box.checked);
     }
 
-    // Todas as checkboxes (inclui as dos toggles e dos itens)
+    // Itens (checklist)
     const itemBoxes = Array.from(document.querySelectorAll('input[type="checkbox"][data-id]'));
-    const gateToggles = Array.from(document.querySelectorAll('input[type="checkbox"].gateToggle'));
-
-    // Restaurar estado das checkboxes de itens
     itemBoxes.forEach(box => {
       const key = storageKey(box.dataset.id);
       box.checked = localStorage.getItem(key) === "true";
@@ -342,25 +520,26 @@
       });
     });
 
-    // Contadores por prefixo (data-count)
+    // Contadores por prefixo
     function updateCounts(){
       document.querySelectorAll("[data-count]").forEach(el=>{
-        const prefix = el.getAttribute("data-count"); // ex: "gerais", "crianca", "praia", "inter"
-        const groupBoxes = itemBoxes.filter(b => (b.dataset.id || "").startsWith(prefix));
-        const done = groupBoxes.filter(b => b.checked).length;
-        el.textContent = `${done}/${groupBoxes.length}`;
+        const prefix = el.getAttribute("data-count"); // doc, mao, nec, r, calor, frio, trab, kids
+        const group = itemBoxes.filter(b => (b.dataset.id || "").startsWith(prefix));
+        const done = group.filter(b => b.checked).length;
+        el.textContent = `${done}/${group.length}`;
       });
     }
     updateCounts();
 
-    // Mostrar/ocultar seção condicional
+    // Seções condicionais (toggles)
+    const gateToggles = Array.from(document.querySelectorAll('input[type="checkbox"].gateToggle'));
+
     function setSectionVisible(sectionId, visible){
       const sec = document.getElementById(sectionId);
       if(!sec) return;
       sec.hidden = !visible;
     }
 
-    // Limpar checks (e storage) de uma seção por prefixo
     function clearByPrefix(prefix){
       const targets = itemBoxes.filter(b => (b.dataset.id || "").startsWith(prefix));
       targets.forEach(b=>{
@@ -370,11 +549,10 @@
       });
     }
 
-    // Restaurar estado dos toggles + aplicar visibilidade
     gateToggles.forEach(tg => {
-      const gateId = tg.dataset.gateId;         // ex: gate_crianca
-      const secId  = tg.dataset.show;           // ex: sec-crianca
-      const prefix = tg.dataset.prefix || "";   // ex: crianca_
+      const gateId = tg.dataset.gateId;       // gate_calor...
+      const secId  = tg.dataset.show;         // sec-calor...
+      const prefix = tg.dataset.prefix || ""; // calor_, frio_, trab_, kids_
 
       tg.checked = localStorage.getItem(storageKey(gateId)) === "true";
       setSectionVisible(secId, tg.checked);
@@ -383,7 +561,6 @@
         localStorage.setItem(storageKey(gateId), tg.checked);
         setSectionVisible(secId, tg.checked);
 
-        // Se desmarcou, limpa os checks daquela seção
         if(!tg.checked && prefix){
           clearByPrefix(prefix);
           updateCounts();
@@ -391,10 +568,9 @@
       });
     });
 
-    // Abrir / fechar tudo (só os details que estão visíveis)
+    // Abrir/fechar tudo (somente o que está visível)
     function visibleDetails(){
-      return Array.from(document.querySelectorAll("details"))
-        .filter(d => !d.hidden);
+      return Array.from(document.querySelectorAll("details")).filter(d => !d.hidden);
     }
 
     document.getElementById("expandAll").addEventListener("click", () => {
@@ -405,18 +581,16 @@
       visibleDetails().forEach(d => d.open = false);
     });
 
-    // Desmarcar tudo (inclui toggles e seções condicionais)
+    // Zerar tudo (inclui toggles)
     document.getElementById("clearAll").addEventListener("click", () => {
       if(!confirm("Desmarcar tudo (incluindo as opções do topo)?")) return;
 
-      // limpar itens
       itemBoxes.forEach(b=>{
         localStorage.removeItem(storageKey(b.dataset.id));
         b.checked = false;
         syncStrike(b);
       });
 
-      // limpar toggles + esconder seções
       gateToggles.forEach(tg=>{
         localStorage.removeItem(storageKey(tg.dataset.gateId));
         tg.checked = false;
