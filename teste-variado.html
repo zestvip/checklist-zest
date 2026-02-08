@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checklist de Mala — Zest</title>
+
+  <style>
+    :root{
+      --bg:#B3D9EB;
+      --card:#F9F7E1;
+      --text:#1f1f1f;
+      --muted:#6b7280;
+
+      --line:#e4e2cf;
+      --pill:#f1f2ec;
+      --radius:18px;
+      --shadow:0 6px 18px rgba(0,0,0,.06);
+
+      --accent:#00BDA9;
+      --soft:#B3D9EB;
+      --deep:#123826;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+      line-height:1.5;
+      padding:18px;
+    }
+
+    .wrap{ max-width:560px; margin:0 auto; }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    header{
+      padding:18px 18px 12px 18px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .brand{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .brand img{ height:34px; object-fit:contain; display:block; }
+
+    h1{ font-size:18px; margin:0; text-align:center; letter-spacing:.2px; }
+
+    .subtitle{
+      text-align:center;
+      margin:8px 0 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      padding:12px 18px;
+      border-bottom:1px solid var(--line);
+      flex-wrap:wrap;
+    }
+
+    button{
+      border:1px solid var(--line);
+      background:var(--card);
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:14px;
+      cursor:pointer;
+      transition:transform .05s ease, background .15s ease, border-color .15s ease;
+    }
+    button:hover{ background:var(--pill); }
+    button:active{ transform:translateY(1px); }
+
+    .ghost{ background:transparent; }
+    .ghost:hover{
+      background:rgba(18,56,38,.06);
+      border-color:rgba(18,56,38,.18);
+    }
+    #clearAll{ border-color:rgba(18,56,38,.18); }
+
+    details{
+      border-bottom:1px solid var(--line);
+      padding:0 18px;
+    }
+
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      user-select:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+    .secTitle{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      font-weight:700;
+      font-size:15px;
+    }
+
+    .count{
+      font-size:12px;
+      color:var(--muted);
+      background:var(--pill);
+      border:1px solid var(--line);
+      padding:4px 8px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    .items{
+      padding:0 0 14px 0;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    label{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px 10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:var(--card);
+      transition:background .15s ease, border-color .15s ease;
+    }
+    label:hover{
+      background:rgba(179,217,235,.22);
+      border-color:rgba(18,56,38,.14);
+    }
+
+    input[type="checkbox"]{
+      margin-top:3px;
+      width:18px;
+      height:18px;
+      flex:0 0 auto;
+      accent-color:var(--accent);
+      cursor:pointer;
+    }
+
+    .txt{ display:flex; flex-direction:column; gap:2px; }
+    .sub{ font-size:12px; color:var(--muted); }
+
+    label.checked{ opacity:.75; }
+    label.checked .txt{ text-decoration:line-through; }
+
+    /* Bloco “Marque aqui se…” */
+    .gate{
+      padding:14px 18px;
+      border-bottom:1px solid var(--line);
+    }
+    .gateTitle{
+      font-weight:800;
+      color:var(--deep);
+      margin:0 0 10px 0;
+      font-size:14px;
+    }
+
+    /* Seções condicionais */
+    .conditional[hidden]{ display:none !important; }
+
+    footer{
+      padding:14px 18px 18px 18px;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .sig{
+      margin-top:12px;
+      color:var(--deep);
+      font-weight:700;
+      line-height:1.35;
+    }
+    .pagebreak{ height:12px; }
+    @media print{
+      .pagebreak{ break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="brand">
+          <img src="logo-zest-ceu.png" alt="Zest">
+        </div>
+        <h1>Checklist de Mala</h1>
+        <p class="subtitle">
+          Marque o que fizer sentido para a sua viagem, salve no celular e volte quando quiser — as marcações ficam guardadas neste dispositivo.
+        </p>
+      </header>
+
+      <div class="actions">
+        <button id="expandAll" class="ghost" type="button">Abrir categorias</button>
+        <button id="collapseAll" class="ghost" type="button">Fechar categorias</button>
+        <button id="clearAll" type="button">Desmarcar tudo</button>
+      </div>
+
+      <!-- MARQUE AQUI SE... (múltipla escolha) -->
+      <div class="gate">
+        <div class="gateTitle">Marque aqui se…</div>
+        <div class="items" style="padding:0;">
+          <label>
+            <input type="checkbox" class="gateToggle" data-gate-id="gate_crianca" data-show="sec-crianca" data-prefix="crianca_">
+            <span class="txt">Você vai viajar com criança <span class="sub">(abre uma seção com itens extras)</span></span>
+          </label>
+
+          <label>
+            <input type="checkbox" class="gateToggle" data-gate-id="gate_praia" data-show="sec-praia" data-prefix="praia_">
+            <span class="txt">Você vai para a praia <span class="sub">(abre a seção praia)</span></span>
+          </label>
+
+          <label>
+            <input type="checkbox" class="gateToggle" data-gate-id="gate_internacional" data-show="sec-internacional" data-prefix="inter_">
+            <span class="txt">A viagem é internacional <span class="sub">(documentos, adaptador, etc.)</span></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ITENS GERAIS (sempre aparece) -->
+      <details open>
+        <summary>
+          <div class="secTitle">Itens gerais</div>
+          <div class="count" data-count="gerais">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="gerais_rg_passaporte"><span class="txt">RG / passaporte <span class="sub">(se aplicável)</span></span></label>
+          <label><input type="checkbox" data-id="gerais_cartoes_credito"><span class="txt">Cartões de crédito <span class="sub">(com aviso de viagem, se o banco exigir)</span></span></label>
+          <label><input type="checkbox" data-id="gerais_chip"><span class="txt">Chip / eSIM</span></label>
+          <label><input type="checkbox" data-id="gerais_cadeados"><span class="txt">Cadeados</span></label>
+          <label><input type="checkbox" data-id="gerais_rastreador"><span class="txt">Rastreador de bagagem</span></label>
+        </div>
+      </details>
+
+      <!-- CONDICIONAL: CRIANÇA -->
+      <details class="conditional" id="sec-crianca" hidden>
+        <summary>
+          <div class="secTitle">Itens para criança</div>
+          <div class="count" data-count="crianca">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="crianca_docs"><span class="txt">Documentos da criança <span class="sub">(RG/passaporte, autorizações, se aplicável)</span></span></label>
+          <label><input type="checkbox" data-id="crianca_remedios"><span class="txt">Remédios básicos / receita, se necessário</span></label>
+          <label><input type="checkbox" data-id="crianca_lanchinho"><span class="txt">Lanchinhos e garrafinha</span></label>
+          <label><input type="checkbox" data-id="crianca_entretenimento"><span class="txt">Entretenimento para o caminho <span class="sub">(livrinho, brinquedo pequeno, fone)</span></span></label>
+          <label><input type="checkbox" data-id="crianca_fraldas"><span class="txt">Fraldas / lenços / trocador <span class="sub">(se usar)</span></span></label>
+        </div>
+      </details>
+
+      <!-- CONDICIONAL: PRAIA -->
+      <details class="conditional" id="sec-praia" hidden>
+        <summary>
+          <div class="secTitle">Praia</div>
+          <div class="count" data-count="praia">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="praia_protetor"><span class="txt">Protetor solar</span></label>
+          <label><input type="checkbox" data-id="praia_possol"><span class="txt">Pós-sol / hidratante</span></label>
+          <label><input type="checkbox" data-id="praia_chapeu"><span class="txt">Chapéu / boné</span></label>
+          <label><input type="checkbox" data-id="praia_oculos"><span class="txt">Óculos de sol</span></label>
+          <label><input type="checkbox" data-id="praia_chinelo"><span class="txt">Chinelo</span></label>
+        </div>
+      </details>
+
+      <!-- CONDICIONAL: INTERNACIONAL -->
+      <details class="conditional" id="sec-internacional" hidden>
+        <summary>
+          <div class="secTitle">Internacional</div>
+          <div class="count" data-count="inter">0/0</div>
+        </summary>
+        <div class="items">
+          <label><input type="checkbox" data-id="inter_passaporte"><span class="txt">Passaporte + visto (se necessário)</span></label>
+          <label><input type="checkbox" data-id="inter_seguro"><span class="txt">Seguro-viagem <span class="sub">(apólice e contatos de emergência)</span></span></label>
+          <label><input type="checkbox" data-id="inter_adaptador"><span class="txt">Adaptador de tomada</span></label>
+          <label><input type="checkbox" data-id="inter_moeda"><span class="txt">Moeda / cartão internacional <span class="sub">(incluindo trocados para gorjetas)</span></span></label>
+          <label><input type="checkbox" data-id="inter_apps"><span class="txt">Apps úteis <span class="sub">(mapas, transporte, companhia aérea, tradução)</span></span></label>
+        </div>
+      </details>
+
+      <footer>
+        As marcações ficam salvas neste celular/navegador.
+
+        <div class="pagebreak"></div>
+
+        <div class="sig">
+          <strong>Zest Estúdio de Viagens de Luxo.</strong><br>
+          <strong>O puro prazer de viajar.</strong>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Versão/chave da página
+    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v_cond_01__";
+
+    // Util
+    function storageKey(id){ return pageKey + id; }
+
+    // Riscar
+    function syncStrike(box){
+      const lab = box.closest("label");
+      if(!lab) return;
+      lab.classList.toggle("checked", box.checked);
+    }
+
+    // Todas as checkboxes (inclui as dos toggles e dos itens)
+    const itemBoxes = Array.from(document.querySelectorAll('input[type="checkbox"][data-id]'));
+    const gateToggles = Array.from(document.querySelectorAll('input[type="checkbox"].gateToggle'));
+
+    // Restaurar estado das checkboxes de itens
+    itemBoxes.forEach(box => {
+      const key = storageKey(box.dataset.id);
+      box.checked = localStorage.getItem(key) === "true";
+      syncStrike(box);
+
+      box.addEventListener("change", () => {
+        localStorage.setItem(key, box.checked);
+        syncStrike(box);
+        updateCounts();
+      });
+    });
+
+    // Contadores por prefixo (data-count)
+    function updateCounts(){
+      document.querySelectorAll("[data-count]").forEach(el=>{
+        const prefix = el.getAttribute("data-count"); // ex: "gerais", "crianca", "praia", "inter"
+        const groupBoxes = itemBoxes.filter(b => (b.dataset.id || "").startsWith(prefix));
+        const done = groupBoxes.filter(b => b.checked).length;
+        el.textContent = `${done}/${groupBoxes.length}`;
+      });
+    }
+    updateCounts();
+
+    // Mostrar/ocultar seção condicional
+    function setSectionVisible(sectionId, visible){
+      const sec = document.getElementById(sectionId);
+      if(!sec) return;
+      sec.hidden = !visible;
+    }
+
+    // Limpar checks (e storage) de uma seção por prefixo
+    function clearByPrefix(prefix){
+      const targets = itemBoxes.filter(b => (b.dataset.id || "").startsWith(prefix));
+      targets.forEach(b=>{
+        localStorage.removeItem(storageKey(b.dataset.id));
+        b.checked = false;
+        syncStrike(b);
+      });
+    }
+
+    // Restaurar estado dos toggles + aplicar visibilidade
+    gateToggles.forEach(tg => {
+      const gateId = tg.dataset.gateId;         // ex: gate_crianca
+      const secId  = tg.dataset.show;           // ex: sec-crianca
+      const prefix = tg.dataset.prefix || "";   // ex: crianca_
+
+      tg.checked = localStorage.getItem(storageKey(gateId)) === "true";
+      setSectionVisible(secId, tg.checked);
+
+      tg.addEventListener("change", () => {
+        localStorage.setItem(storageKey(gateId), tg.checked);
+        setSectionVisible(secId, tg.checked);
+
+        // Se desmarcou, limpa os checks daquela seção
+        if(!tg.checked && prefix){
+          clearByPrefix(prefix);
+          updateCounts();
+        }
+      });
+    });
+
+    // Abrir / fechar tudo (só os details que estão visíveis)
+    function visibleDetails(){
+      return Array.from(document.querySelectorAll("details"))
+        .filter(d => !d.hidden);
+    }
+
+    document.getElementById("expandAll").addEventListener("click", () => {
+      visibleDetails().forEach(d => d.open = true);
+    });
+
+    document.getElementById("collapseAll").addEventListener("click", () => {
+      visibleDetails().forEach(d => d.open = false);
+    });
+
+    // Desmarcar tudo (inclui toggles e seções condicionais)
+    document.getElementById("clearAll").addEventListener("click", () => {
+      if(!confirm("Desmarcar tudo (incluindo as opções do topo)?")) return;
+
+      // limpar itens
+      itemBoxes.forEach(b=>{
+        localStorage.removeItem(storageKey(b.dataset.id));
+        b.checked = false;
+        syncStrike(b);
+      });
+
+      // limpar toggles + esconder seções
+      gateToggles.forEach(tg=>{
+        localStorage.removeItem(storageKey(tg.dataset.gateId));
+        tg.checked = false;
+        setSectionVisible(tg.dataset.show, false);
+      });
+
+      updateCounts();
+    });
+  </script>
+</body>
+</html>
