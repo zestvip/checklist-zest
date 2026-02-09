@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Checklist da sua viaagem com a Zest</title>
+  <title>Checklist da sua viagem com a Zest</title>
 
   <style>
     :root{
@@ -22,7 +22,12 @@
     h1{ font-size:18px; margin:0; letter-spacing:.2px; text-align:center; }
     .subtitle{ text-align:center; margin:8px 0 0 0; color:var(--muted); font-size:13px; }
 
-    .actions{ display:flex; gap:10px; padding:12px 18px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+    /* Actions topo removido, css mantido apenas se necessário reuso */
+    .actions{ display:flex; gap:10px; padding:12px 18px; border-bottom:1px solid var(--line); flex-wrap:wrap; justify-content: flex-end; }
+    
+    /* Botão clear no final */
+    .bottom-actions { padding: 20px 18px 0 18px; display:flex; justify-content:center; }
+
     button{
       border:1px solid var(--line); background:var(--card); padding:10px 12px; border-radius:12px; font-size:14px; cursor:pointer;
       transition:transform .05s ease, background .15s ease, border-color .15s ease;
@@ -31,7 +36,7 @@
     button:active{ transform:translateY(1px); }
     .ghost{ background:transparent; }
     .ghost:hover{ background:rgba(18,56,38,.06); border-color:rgba(18,56,38,.18); }
-    #clearAll{ border-color:rgba(18,56,38,.18); }
+    #clearAll{ border-color:rgba(18,56,38,.18); width: 100%; color: var(--deep); font-weight: 600; opacity: 0.8; }
 
     details{ border-bottom:1px solid var(--line); padding:0 18px; }
     summary{
@@ -138,7 +143,6 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
         </p>
       </header>
 
-      <!-- CENÁRIOS (condicionais) -->
       <section class="scenarios" id="scenarios">
         <p class="scTitle">Marque aqui o que se aplica à sua viagem</p>
 
@@ -183,20 +187,12 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
         </div>
       </section>
 
-      <div class="actions">
-        <button id="expandAll" class="ghost" type="button">Abrir categorias</button>
-        <button id="collapseAll" class="ghost" type="button">Fechar categorias</button>
-        <button id="clearAll" type="button">Desmarcar tudo</button>
-      </div>
-
-      <!-- 1️⃣ DOCUMENTOS E ITENS PRÁTICOS -->
       <details open>
         <summary>
           <div class="secTitle">1️⃣ Documentos e itens práticos</div>
           <div class="count" data-count="doc">0/0</div>
         </summary>
 
-        <!-- Condicional: Viagem nacional -->
         <div class="subsection conditional" data-show-when="trip_nacional">
           <div class="subhead">Viagem nacional</div>
           <div class="items" style="padding:0;">
@@ -211,7 +207,6 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
           </div>
         </div>
 
-        <!-- Condicional: Viagem internacional -->
         <div class="subsection conditional" data-show-when="trip_internacional">
           <div class="subhead">Viagem internacional</div>
           <div class="items" style="padding:0;">
@@ -233,20 +228,17 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
           </div>
         </div>
 
-        <!-- Placeholder quando nada marcado -->
         <div class="noteBox conditional" data-show-when="__none_trip" style="margin-top:10px;">
           Marque acima se sua viagem é <strong>nacional</strong> e/ou <strong>internacional</strong> para ver os itens desta seção.
         </div>
       </details>
 
-      <!-- 2️⃣ MALA DE MÃO -->
       <details>
         <summary>
           <div class="secTitle">2️⃣ Mala de mão</div>
           <div class="count" data-count="mao">0/0</div>
         </summary>
 
-        <!-- Condicional: Internacional -->
         <div class="subsection conditional" data-show-when="trip_internacional">
           <div class="subhead">Viagem internacional</div>
           <div class="noteBox" style="margin-bottom:10px;">
@@ -276,7 +268,6 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
           </div>
         </div>
 
-        <!-- Condicional: Nacional -->
         <div class="subsection conditional" data-show-when="trip_nacional">
           <div class="subhead">Viagem nacional</div>
           <div class="noteBox" style="margin-bottom:10px;">
@@ -299,12 +290,52 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
           </div>
         </div>
 
+        <div class="subsection conditional" data-show-when="perfil_bebes">
+          <div class="subhead">Com bebês (0–2 anos)</div>
+          <div class="noteBox" style="margin-bottom:10px;">Tudo que for líquido tem que ter no máximo <strong>100 ml</strong> e estar dentro do <strong>zip lock transparente</strong>.</div>
+          <div class="items" style="padding:0;">
+            <label class="item"><input type="checkbox" data-id="r_bebe_01"><span class="txt">Fraldas / lenços de papel e umedecidos / trocador / forro de trocador</span></label>
+            <label class="item"><input type="checkbox" data-id="r_bebe_02"><span class="txt">Mamadeira</span></label>
+            <label class="item"><input type="checkbox" data-id="r_bebe_03"><span class="txt">Leite em pó / fórmula</span></label>
+            <label class="item"><input type="checkbox" data-id="r_bebe_04"><span class="txt">Hora do soninho <span class="sub">(paninho, chupeta, pelúcia etc.)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_bebe_05"><span class="txt">Petiscos <span class="sub">(bolachas, salgadinhos, chocolates, sucos de caixinha)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_bebe_06"><span class="txt">Papinhas <span class="sub">(também podem ser aquecidas a bordo)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_bebe_07"><span class="txt">Medicamentos essenciais <span class="sub">(analgésico, antitérmico, antiemético, termômetro — converse com o pediatra)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_bebe_08"><span class="txt">Duas mudas de roupas <span class="sub">(para a criança e também para os adultos)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_bebe_09"><span class="txt">Entretenimento para o caminho <span class="sub">(livrinhos, brinquedos silenciosos, kits de desenho, tablet com fone de ouvido)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_bebe_10"><span class="txt">Documentos da criança <span class="sub">(RG/passaporte com visto, se necessário)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_bebe_11"><span class="txt">Cópia autenticada da certidão de nascimento <span class="sub">(uma garantia extra)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_bebe_12"><span class="txt">Autorização de viagem para menor <span class="sub">(se necessário)</span></span></label>
+          </div>
+        </div>
+
+        <div class="subsection conditional" data-show-when="perfil_criancas">
+          <div class="subhead">Com crianças (3–12 anos)</div>
+          <div class="noteBox" style="margin-bottom:10px;">Tudo que for líquido tem que ter no máximo <strong>100 ml</strong> e estar dentro do <strong>zip lock transparente</strong>.</div>
+          <div class="items" style="padding:0;">
+            <label class="item"><input type="checkbox" data-id="r_cri_01"><span class="txt">Documentos da criança <span class="sub">(RG/passaporte com visto, se necessário)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_cri_02"><span class="txt">Autorização de viagem para menor <span class="sub">(se necessário)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_cri_03"><span class="txt">Lenços de papel e umedecidos</span></label>
+            <label class="item"><input type="checkbox" data-id="r_cri_04"><span class="txt">Petiscos <span class="sub">(bolachas, salgadinhos, chocolates, sucos de caixinha)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_cri_05"><span class="txt">Entretenimento para o caminho <span class="sub">(livrinhos, brinquedos silenciosos, kits de desenho, tablet com fone de ouvido)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_cri_06"><span class="txt">Medicamentos essenciais <span class="sub">(analgésico, antitérmico, antiemético, termômetro — converse com o pediatra)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_cri_07"><span class="txt">Duas mudas de roupas <span class="sub">(para a criança e também para os adultos)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_cri_08"><span class="txt">Cópia autenticada da certidão de nascimento <span class="sub">(uma garantia extra)</span></span></label>
+          </div>
+        </div>
+
+        <div class="subsection conditional" data-show-when="perfil_menor">
+          <div class="subhead">Com menores de idade (13 a 17 anos)</div>
+          <div class="items" style="padding:0;">
+            <label class="item"><input type="checkbox" data-id="r_adol_01"><span class="txt">Autorização de viagem<span class="sub">(se necessário)</span></span></label>
+          </div>
+        </div>
+
         <div class="noteBox conditional" data-show-when="__none_trip" style="margin-top:10px;">
           Marque acima se sua viagem é <strong>nacional</strong> e/ou <strong>internacional</strong> para ver os itens desta seção.
         </div>
       </details>
 
-      <!-- 4️⃣ NECESSAIRES -->
       <details>
         <summary>
           <div class="secTitle">4️⃣ Necessaires dentro da mala</div>
@@ -359,14 +390,12 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
         </div>
       </details>
 
-      <!-- 5️⃣ DENTRO DA MALA (condicionais por clima/destino/perfil) -->
       <details>
         <summary>
           <div class="secTitle">5️⃣ Dentro da mala</div>
           <div class="count" data-count="r">0/0</div>
         </summary>
 
-        <!-- EM TODOS -->
         <div class="subsection">
           <div class="subhead">Íntimos <span style="font-weight:700;color:var(--muted);"></span></div>
           <div class="items" style="padding:0;">
@@ -387,8 +416,23 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
             <label class="item"><input type="checkbox" data-id="r_all_09"><span class="txt">Roupas confortáveis para prática de exercícios<span class="sub">(como top, calça, blusa e tênis)</span></span></label>
           </div>
         </div>
+        
+        <div class="subsection conditional" data-show-when="perfil_trabalho">
+          <div class="subhead">A trabalho</div>
+          <div class="items" style="padding:0;">
+            <label class="item"><input type="checkbox" data-id="r_work_01"><span class="txt">Cartão corporativo</span></label>
+            <label class="item"><input type="checkbox" data-id="r_work_02"><span class="txt">Cartão de visitas</span></label>
+            <label class="item"><input type="checkbox" data-id="r_work_03"><span class="txt">Materiais de trabalho</span></label>
+            <label class="item"><input type="checkbox" data-id="r_work_04"><span class="txt">Documentos salvos offline e em nuvem</span></label>
+            <label class="item"><input type="checkbox" data-id="r_work_05"><span class="txt">Laptop, mouse e carregador</span></label>
+            <label class="item"><input type="checkbox" data-id="r_work_06"><span class="txt">Bloco de notas e caneta</span></label>
+            <label class="item"><input type="checkbox" data-id="r_work_07"><span class="txt">Roupas sociais <span class="sub">(camisas, calças, vestidos)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_work_08"><span class="txt">Blazer ou casaco formal</span></label>
+            <label class="item"><input type="checkbox" data-id="r_work_09"><span class="txt">Sapato social</span></label>
+            <label class="item"><input type="checkbox" data-id="r_work_10"><span class="txt">Roupas casuais para o tempo livre</span></label>
+          </div>
+        </div>
 
-        <!-- Condicional: Calor OU Meia-estação -->
         <div class="subsection conditional" data-show-when="clima_calor clima_meia">
           <div class="subhead">Destinos de calor/meia-estação</div>
           <div class="items" style="padding:0;">
@@ -399,21 +443,39 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
           </div>
         </div>
 
-        <!-- Condicional: Praia -->
+        <div class="subsection conditional" data-show-when="clima_meia">
+          <div class="subhead">Meia-estação</div>
+          <div class="items" style="padding:0;">
+            <label class="item"><input type="checkbox" data-id="r_meia_01"><span class="txt">Cardigan, suéter leve ou malha fina</span></label>
+            <label class="item"><input type="checkbox" data-id="r_meia_02"><span class="txt">Itens com opção de sobreposição <span class="sub">(camisetas, vestidos, etc.)</span></span></label>
+            <div class="noteBox"><strong>OBSERVAÇÃO:</strong> Prefira peças que funcionem bem em camadas, facilitando ajustes ao longo do dia.</div>
+          </div>
+        </div>
+
         <div class="subsection conditional" data-show-when="dest_praia">
           <div class="subhead">Praia/piscina <span style="font-weight:700;color:var(--muted);"></span></div>
           <div class="items" style="padding:0;">
             <label class="item"><input type="checkbox" data-id="r_praia_01"><span class="txt">Mais roupas de banho<span class="sub">(maiô, biquíni, sunga)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_praia_01"><span class="txt">Bolsa de praia</span></label>
-            <label class="item"><input type="checkbox" data-id="r_praia_02"><span class="txt">Saída de praia</span></label>
-            <label class="item"><input type="checkbox" data-id="r_praia_03"><span class="txt">Chapéu/boné</span></label>
-            <label class="item"><input type="checkbox" data-id="r_praia_04"><span class="txt">Blusa anti-UV</span></label>
-            <label class="item"><input type="checkbox" data-id="r_praia_05"><span class="txt">Shampoo e condicionador pós-sol / hidratante corporal reforçado</span></label>
-            <label class="item"><input type="checkbox" data-id="r_praia_06"><span class="txt">Sacos para roupas molhadas</span></label>
+            <label class="item"><input type="checkbox" data-id="r_praia_02"><span class="txt">Bolsa de praia</span></label>
+            <label class="item"><input type="checkbox" data-id="r_praia_03"><span class="txt">Saída de praia</span></label>
+            <label class="item"><input type="checkbox" data-id="r_praia_04"><span class="txt">Chapéu/boné</span></label>
+            <label class="item"><input type="checkbox" data-id="r_praia_05"><span class="txt">Blusa anti-UV</span></label>
+            <label class="item"><input type="checkbox" data-id="r_praia_06"><span class="txt">Shampoo e condicionador pós-sol / hidratante corporal reforçado</span></label>
+            <label class="item"><input type="checkbox" data-id="r_praia_07"><span class="txt">Sacos para roupas molhadas</span></label>
+          </div>
+        </div>
+        
+        <div class="subsection conditional" data-show-when="dest_cidade">
+          <div class="subhead">Cidade</div>
+          <div class="items" style="padding:0;">
+            <label class="item"><input type="checkbox" data-id="r_cidade_01"><span class="txt">Calçados confortáveis para caminhar</span></label>
+            <label class="item"><input type="checkbox" data-id="r_cidade_02"><span class="txt">Um calçado extra mais arrumado <span class="sub">(jantar, teatro, restaurante)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="r_cidade_03"><span class="txt">Casaco ou terceira peça adequada ao clima</span></label>
+            <label class="item"><input type="checkbox" data-id="r_cidade_04"><span class="txt">Bolsa ou mochila prática para passeios urbanos</span></label>
+            <div class="noteBox"><strong>OBSERVAÇÃO:</strong> Prefira peças que transitem bem do dia para a noite com pequenos ajustes de acessórios.</div>
           </div>
         </div>
 
-        <!-- Condicional: Frio -->
         <div class="subsection conditional" data-show-when="clima_frio">
           <div class="subhead">Destinos de frio</div>
           <div class="noteBox" style="margin-bottom:10px;"><strong>Dica:</strong> O segredo para se vestir bem no frio está nas camadas – fáceis de colocar, fáceis de tirar.</div>
@@ -431,7 +493,6 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
             </div>
         </div>
 
-        <!-- Condicional: Neve -->
         <div class="subsection conditional" data-show-when="clima_neve">
           <div class="subhead">Neve <span style="font-weight:700;color:var(--muted);"></span></div>
           <div class="items" style="padding:0;">
@@ -445,7 +506,6 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
           </div>
         </div>
 
-        <!-- Condicional: Ecoturismo -->
         <div class="subsection conditional" data-show-when="dest_ecoturismo">
           <div class="subhead">Ecoturismo</div>
           <div class="items" style="padding:0;">
@@ -454,11 +514,10 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
             <label class="item"><input type="checkbox" data-id="r_eco_03"><span class="txt">Squeeze</span></label>
             <label class="item"><input type="checkbox" data-id="r_eco_04"><span class="txt">Roupas leves e respiráveis<span class="sub">(preferencialmente de secagem rápida)</span></span></label>
             <label class="item"><input type="checkbox" data-id="r_eco_05"><span class="txt">Tênis confortável e adequado às atividades pretendidas<span class="sub">(leve mais de um par, pois eles costumam sujar)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_eco_05"><span class="txt">Capa de chuva ou anorak leve</span></label>
+            <label class="item"><input type="checkbox" data-id="r_eco_06"><span class="txt">Capa de chuva ou anorak leve</span></label>
           </div>
         </div>
 
-        <!-- Condicional: Cruzeiro -->
         <div class="subsection conditional" data-show-when="dest_cruzeiro clima_calor clima_meia">
           <div class="subhead">Cruzeiro no calor</div>
           <div class="items" style="padding:0;">
@@ -477,70 +536,8 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
             <label class="item"><input type="checkbox" data-id="r_cru_fr_03"><span class="txt">Roupa confortável e quente</span></label>
           </div>
         </div>
-
-        <!-- Condicional: Bebês -->
-        <div class="subsection conditional" data-show-when="perfil_bebes">
-          <div class="subhead">Com bebês (0–2 anos)</div>
-          <div class="noteBox" style="margin-bottom:10px;">Tudo que for líquido tem que ter no máximo <strong>100 ml</strong> e estar dentro do <strong>zip lock transparente</strong>.</div>
-          <div class="items" style="padding:0;">
-            <label class="item"><input type="checkbox" data-id="r_bebe_01"><span class="txt">Fraldas / lenços de papel e umedecidos / trocador / forro de trocador</span></label>
-            <label class="item"><input type="checkbox" data-id="r_bebe_02"><span class="txt">Mamadeira</span></label>
-            <label class="item"><input type="checkbox" data-id="r_bebe_03"><span class="txt">Leite em pó / fórmula</span></label>
-            <label class="item"><input type="checkbox" data-id="r_bebe_04"><span class="txt">Hora do soninho <span class="sub">(paninho, chupeta, pelúcia etc.)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_bebe_05"><span class="txt">Petiscos <span class="sub">(bolachas, salgadinhos, chocolates, sucos de caixinha)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_bebe_06"><span class="txt">Papinhas <span class="sub">(também podem ser aquecidas a bordo)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_bebe_07"><span class="txt">Medicamentos essenciais <span class="sub">(analgésico, antitérmico, antiemético, termômetro — converse com o pediatra)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_bebe_08"><span class="txt">Duas mudas de roupas <span class="sub">(para a criança e também para os adultos)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_bebe_09"><span class="txt">Entretenimento para o caminho <span class="sub">(livrinhos, brinquedos silenciosos, kits de desenho, tablet com fone de ouvido)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_bebe_10"><span class="txt">Documentos da criança <span class="sub">(RG/passaporte com visto, se necessário)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_bebe_11"><span class="txt">Cópia autenticada da certidão de nascimento <span class="sub">(uma garantia extra)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_bebe_12"><span class="txt">Autorização de viagem para menor <span class="sub">(se necessário)</span></span></label>
-          </div>
-        </div>
-
-        <!-- Condicional: Crianças -->
-        <div class="subsection conditional" data-show-when="perfil_criancas">
-          <div class="subhead">Com crianças (3–12 anos)</div>
-          <div class="noteBox" style="margin-bottom:10px;">Tudo que for líquido tem que ter no máximo <strong>100 ml</strong> e estar dentro do <strong>zip lock transparente</strong>.</div>
-          <div class="items" style="padding:0;">
-            <label class="item"><input type="checkbox" data-id="r_cri_01"><span class="txt">Documentos da criança <span class="sub">(RG/passaporte com visto, se necessário)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_cri_02"><span class="txt">Autorização de viagem para menor <span class="sub">(se necessário)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_cri_03"><span class="txt">Lenços de papel e umedecidos</span></label>
-            <label class="item"><input type="checkbox" data-id="r_cri_04"><span class="txt">Petiscos <span class="sub">(bolachas, salgadinhos, chocolates, sucos de caixinha)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_cri_05"><span class="txt">Entretenimento para o caminho <span class="sub">(livrinhos, brinquedos silenciosos, kits de desenho, tablet com fone de ouvido)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_cri_06"><span class="txt">Medicamentos essenciais <span class="sub">(analgésico, antitérmico, antiemético, termômetro — converse com o pediatra)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_cri_07"><span class="txt">Duas mudas de roupas <span class="sub">(para a criança e também para os adultos)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_cri_08"><span class="txt">Cópia autenticada da certidão de nascimento <span class="sub">(uma garantia extra)</span></span></label>
-          </div>
-        </div>
-
-        <!-- Condicional: Menor 13–17 -->
-        <div class="subsection conditional" data-show-when="perfil_menor">
-          <div class="subhead">Com menores de idade (13 a 17 anos)</div>
-          <div class="items" style="padding:0;">
-            <label class="item"><input type="checkbox" data-id="r_adol_01"><span class="txt">Autorização de viagem<span class="sub">(se necessário)</span></span></label>
-          </div>
-        </div>
-
-        <!-- Condicional: Trabalho -->
-        <div class="subsection conditional" data-show-when="perfil_trabalho">
-          <div class="subhead">A trabalho</div>
-          <div class="items" style="padding:0;">
-            <label class="item"><input type="checkbox" data-id="r_work_01"><span class="txt">Cartão corporativo</span></label>
-            <label class="item"><input type="checkbox" data-id="r_work_02"><span class="txt">Cartão de visitas</span></label>
-            <label class="item"><input type="checkbox" data-id="r_work_03"><span class="txt">Materiais de trabalho</span></label>
-            <label class="item"><input type="checkbox" data-id="r_work_04"><span class="txt">Documentos salvos offline e em nuvem</span></label>
-            <label class="item"><input type="checkbox" data-id="r_work_05"><span class="txt">Laptop, mouse e carregador</span></label>
-            <label class="item"><input type="checkbox" data-id="r_work_06"><span class="txt">Bloco de notas e caneta</span></label>
-            <label class="item"><input type="checkbox" data-id="r_work_07"><span class="txt">Roupas sociais <span class="sub">(camisas, calças, vestidos)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="r_work_08"><span class="txt">Blazer ou casaco formal</span></label>
-            <label class="item"><input type="checkbox" data-id="r_work_09"><span class="txt">Sapato social</span></label>
-            <label class="item"><input type="checkbox" data-id="r_work_10"><span class="txt">Roupas casuais para o tempo livre</span></label>
-          </div>
-        </div>
       </details>
 
-      <!-- 6️⃣ ANTES DO EMBARQUE (condicional: aparece sempre) -->
       <details>
         <summary>
           <div class="secTitle">6️⃣ Antes do embarque</div>
@@ -585,24 +582,27 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
         <div class="subsection" style="margin-top:12px;">
           <div class="subhead">No dia da viagem</div>
           <div class="items" style="padding:0;">
-            <label class="item"><input type="checkbox" data-id="pre_17"><span class="txt">Releia seu itinerário Zest <span class="sub">(para confirmar horários de embarque e transfer)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="pre_18"><span class="txt">Regue as plantas</span></label>
-            <label class="item"><input type="checkbox" data-id="pre_19"><span class="txt">Feche as cortinas voltadas para a rua e trave todas as janelas</span></span></label>
-            <label class="item"><input type="checkbox" data-id="pre_20"><span class="txt">Tire fotos do fogão, forno e portas trancadas <span class="sub">(um truque simples que evita dúvidas depois)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="pre_21"><span class="txt">Descarte alimentos perecíveis que não durem até a volta</span></label>
-            <label class="item"><input type="checkbox" data-id="pre_22"><span class="txt">Tire o lixo antes de sair</span></label>
-            <label class="item"><input type="checkbox" data-id="pre_23"><span class="txt">Feche todas as janelas</span></label>
-            <label class="item"><input type="checkbox" data-id="pre_24"><span class="txt">Tranque bem portas e portões</span></label>
-            <label class="item"><input type="checkbox" data-id="pre_25"><span class="txt">Ative o alarme <span class="sub">(se houver)</span></span></label>
-            <label class="item"><input type="checkbox" data-id="pre_26"><span class="txt">Documentos em mãos? <span class="sub">Agora é só curtir!</span></span></label>
+            <label class="item"><input type="checkbox" data-id="pre_18"><span class="txt">Releia seu itinerário Zest <span class="sub">(para confirmar horários de embarque e transfer)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="pre_19"><span class="txt">Regue as plantas</span></label>
+            <label class="item"><input type="checkbox" data-id="pre_20"><span class="txt">Feche as cortinas voltadas para a rua e trave todas as janelas</span></span></label>
+            <label class="item"><input type="checkbox" data-id="pre_21"><span class="txt">Tire fotos do fogão, forno e portas trancadas <span class="sub">(um truque simples que evita dúvidas depois)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="pre_22"><span class="txt">Descarte alimentos perecíveis que não durem até a volta</span></label>
+            <label class="item"><input type="checkbox" data-id="pre_23"><span class="txt">Tire o lixo antes de sair</span></label>
+            <label class="item"><input type="checkbox" data-id="pre_24"><span class="txt">Feche todas as janelas</span></label>
+            <label class="item"><input type="checkbox" data-id="pre_25"><span class="txt">Tranque bem portas e portões</span></label>
+            <label class="item"><input type="checkbox" data-id="pre_26"><span class="txt">Ative o alarme <span class="sub">(se houver)</span></span></label>
+            <label class="item"><input type="checkbox" data-id="pre_27"><span class="txt">Documentos em mãos? <span class="sub">Agora é só curtir!</span></span></label>
           </div>
         </div>
       </details>
 
-      <!-- ANOTAÇÕES -->
       <div class="notesWrap">
         <div class="notesTitle">📝 Anotações</div>
         <textarea id="notesText" placeholder="Escreva aqui observações, itens para comprar, ideias de looks, etc."></textarea>
+      </div>
+      
+      <div class="bottom-actions">
+        <button id="clearAll" type="button">Desmarcar tudo</button>
       </div>
 
       <footer>
@@ -619,7 +619,7 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
 
   <script>
     // Chave por página (evita misturar com versões antigas/arquivos diferentes)
-    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v6__";
+    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v7__";
 
     // --- Helpers storage ---
     const lsGet = (k) => localStorage.getItem(k);
@@ -666,11 +666,10 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
 
         // caso especial: “Cruzeiro no calor” precisa de cruzeiro E (calor OU meia)
         // Como está no HTML: data-show-when="dest_cruzeiro clima_calor clima_meia"
-        // Para ficar fiel ao “cenário”, aplicamos:
-        // - Se incluir dest_cruzeiro, exigimos dest_cruzeiro e (qualquer outra tag presente OU só dest_cruzeiro)
         const requiresCruise = tags.includes("dest_cruzeiro");
         if(requiresCruise){
           const others = tags.filter(t => t !== "dest_cruzeiro");
+          // Requer cruzeiro E (algum item de 'others' OU 'others' vazio)
           const ok = active.has("dest_cruzeiro") && (others.length === 0 || others.some(t => active.has(t)));
           el.classList.toggle("show", ok);
           return;
@@ -686,6 +685,27 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
 
     scenarioBoxes.forEach(cb=>{
       cb.addEventListener("change", ()=>{
+        
+        // --- Lógica de Seleção Automática ---
+        // Se selecionar Praia -> Seleciona Calor (se não estiver)
+        if(cb.checked && cb.dataset.scenario === "dest_praia") {
+           const calorBox = document.querySelector('input[data-scenario="clima_calor"]');
+           if(calorBox && !calorBox.checked) {
+             calorBox.checked = true;
+             saveScenario(calorBox);
+           }
+        }
+        
+        // Se selecionar Neve -> Seleciona Frio (se não estiver)
+        if(cb.checked && cb.dataset.scenario === "clima_neve") {
+           const frioBox = document.querySelector('input[data-scenario="clima_frio"]');
+           if(frioBox && !frioBox.checked) {
+             frioBox.checked = true;
+             saveScenario(frioBox);
+           }
+        }
+        // ------------------------------------
+
         saveScenario(cb);
         applyConditionals();
       });
@@ -739,15 +759,9 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
       });
     }
 
-    // --- Abrir / fechar tudo ---
+    // --- Abrir / fechar tudo (Botões removidos do HTML, mas mantemos lógica caso voltem no futuro ou para details padrão) ---
     const allDetails = Array.from(document.querySelectorAll("details"));
-    document.getElementById("expandAll").addEventListener("click", () => {
-      allDetails.forEach(d => d.open = true);
-    });
-    document.getElementById("collapseAll").addEventListener("click", () => {
-      allDetails.forEach(d => d.open = false);
-    });
-
+    
     // --- Desmarcar tudo (zera cenários + itens + notas) ---
     document.getElementById("clearAll").addEventListener("click", () => {
       if(!confirm("Desmarcar tudo (cenários + checklist) e apagar as anotações desta página?")) return;
