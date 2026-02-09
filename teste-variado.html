@@ -22,10 +22,8 @@
     h1{ font-size:18px; margin:0; letter-spacing:.2px; text-align:center; }
     .subtitle{ text-align:center; margin:8px 0 0 0; color:var(--muted); font-size:13px; }
 
-    /* Actions topo removido, css mantido apenas se necessário reuso */
+    /* Botões */
     .actions{ display:flex; gap:10px; padding:12px 18px; border-bottom:1px solid var(--line); flex-wrap:wrap; justify-content: flex-end; }
-    
-    /* Botão clear no final */
     .bottom-actions { padding: 20px 18px 0 18px; display:flex; justify-content:center; }
 
     button{
@@ -444,7 +442,7 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
         </div>
 
         <div class="subsection conditional" data-show-when="clima_meia">
-          <div class="subhead">Meia-estação</div>
+          <div class="subhead">Complementos para Meia-estação</div>
           <div class="items" style="padding:0;">
             <label class="item"><input type="checkbox" data-id="r_meia_01"><span class="txt">Cardigan, suéter leve ou malha fina</span></label>
             <label class="item"><input type="checkbox" data-id="r_meia_02"><span class="txt">Itens com opção de sobreposição <span class="sub">(camisetas, vestidos, etc.)</span></span></label>
@@ -619,7 +617,7 @@ Marque no celular, faça anotações e volte quando precisar: tudo fica salvo ne
 
   <script>
     // Chave por página (evita misturar com versões antigas/arquivos diferentes)
-    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v7__";
+    const pageKey = "zest__" + (location.pathname.split("/").pop() || "index") + "__v8__";
 
     // --- Helpers storage ---
     const lsGet = (k) => localStorage.getItem(k);
